@@ -9,13 +9,15 @@
 /* Begin PBXBuildFile section */
 		DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAD2238634E6008DF72C /* AppDelegate.swift */; };
 		DE7FAAD5238634E6008DF72C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAD4238634E6008DF72C /* SceneDelegate.swift */; };
-		DE7FAAD7238634E6008DF72C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAD6238634E6008DF72C /* ViewController.swift */; };
+		DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAD6238634E6008DF72C /* DropTokenViewController.swift */; };
 		DE7FAADA238634E6008DF72C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE7FAAD8238634E6008DF72C /* Main.storyboard */; };
 		DE7FAADC238634E8008DF72C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE7FAADB238634E8008DF72C /* Assets.xcassets */; };
 		DE7FAADF238634E8008DF72C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE7FAADD238634E8008DF72C /* LaunchScreen.storyboard */; };
 		DE7FAAEA238634E8008DF72C /* DropToken98Point6Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAE9238634E8008DF72C /* DropToken98Point6Tests.swift */; };
 		DE7FAAF5238634E8008DF72C /* DropToken98Point6UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAAF4238634E8008DF72C /* DropToken98Point6UITests.swift */; };
 		DE7FAB04238655C6008DF72C /* DropTokenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */; };
+		DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB062389E7DB008DF72C /* DropTokenService.swift */; };
+		DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +41,7 @@
 		DE7FAACF238634E6008DF72C /* DropToken98Point6.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DropToken98Point6.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE7FAAD2238634E6008DF72C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE7FAAD4238634E6008DF72C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		DE7FAAD6238634E6008DF72C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DE7FAAD6238634E6008DF72C /* DropTokenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenViewController.swift; sourceTree = "<group>"; };
 		DE7FAAD9238634E6008DF72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE7FAADB238634E8008DF72C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE7FAADE238634E8008DF72C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		DE7FAAF4238634E8008DF72C /* DropToken98Point6UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropToken98Point6UITests.swift; sourceTree = "<group>"; };
 		DE7FAAF6238634E8008DF72C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewCell.swift; sourceTree = "<group>"; };
+		DE7FAB062389E7DB008DF72C /* DropTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenService.swift; sourceTree = "<group>"; };
+		DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,14 +105,14 @@
 		DE7FAAD1238634E6008DF72C /* DropToken98Point6 */ = {
 			isa = PBXGroup;
 			children = (
+				DE7FAB082389EA24008DF72C /* Views */,
+				DE7FAB052389E7B6008DF72C /* Service */,
 				DE7FAAD2238634E6008DF72C /* AppDelegate.swift */,
 				DE7FAAD4238634E6008DF72C /* SceneDelegate.swift */,
-				DE7FAAD6238634E6008DF72C /* ViewController.swift */,
 				DE7FAAD8238634E6008DF72C /* Main.storyboard */,
 				DE7FAADB238634E8008DF72C /* Assets.xcassets */,
 				DE7FAADD238634E8008DF72C /* LaunchScreen.storyboard */,
 				DE7FAAE0238634E8008DF72C /* Info.plist */,
-				DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */,
 			);
 			path = DropToken98Point6;
 			sourceTree = "<group>";
@@ -129,6 +133,40 @@
 				DE7FAAF6238634E8008DF72C /* Info.plist */,
 			);
 			path = DropToken98Point6UITests;
+			sourceTree = "<group>";
+		};
+		DE7FAB052389E7B6008DF72C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB062389E7DB008DF72C /* DropTokenService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		DE7FAB082389EA24008DF72C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB0C2389EAB0008DF72C /* DropToken */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DE7FAB092389EA48008DF72C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DE7FAB0C2389EAB0008DF72C /* DropToken */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB092389EA48008DF72C /* Extensions */,
+				DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */,
+				DE7FAAD6238634E6008DF72C /* DropTokenViewController.swift */,
+			);
+			path = DropToken;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +300,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE7FAAD7238634E6008DF72C /* ViewController.swift in Sources */,
+				DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */,
+				DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */,
 				DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */,
 				DE7FAAD5238634E6008DF72C /* SceneDelegate.swift in Sources */,
+				DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */,
 				DE7FAB04238655C6008DF72C /* DropTokenCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
