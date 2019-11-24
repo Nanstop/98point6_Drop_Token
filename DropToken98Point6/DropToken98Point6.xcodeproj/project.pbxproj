@@ -19,6 +19,7 @@
 		DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB062389E7DB008DF72C /* DropTokenService.swift */; };
 		DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */; };
 		DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */; };
+		DE7FAB11238A4F96008DF72C /* DropTokenApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		DE7FAB062389E7DB008DF72C /* DropTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenService.swift; sourceTree = "<group>"; };
 		DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionExtension.swift; sourceTree = "<group>"; };
 		DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewBtnCell.swift; sourceTree = "<group>"; };
+		DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenApi.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 		DE7FAAD1238634E6008DF72C /* DropToken98Point6 */ = {
 			isa = PBXGroup;
 			children = (
+				DE7FAB0F238A4F63008DF72C /* Api */,
 				DE7FAB082389EA24008DF72C /* Views */,
 				DE7FAB052389E7B6008DF72C /* Service */,
 				DE7FAAD2238634E6008DF72C /* AppDelegate.swift */,
@@ -170,6 +173,14 @@
 				DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */,
 			);
 			path = DropToken;
+			sourceTree = "<group>";
+		};
+		DE7FAB0F238A4F63008DF72C /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */,
+			);
+			path = Api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */,
 				DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */,
 				DE7FAAD5238634E6008DF72C /* SceneDelegate.swift in Sources */,
+				DE7FAB11238A4F96008DF72C /* DropTokenApi.swift in Sources */,
 				DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */,
 				DE7FAB04238655C6008DF72C /* DropTokenCollectionViewCell.swift in Sources */,
 			);

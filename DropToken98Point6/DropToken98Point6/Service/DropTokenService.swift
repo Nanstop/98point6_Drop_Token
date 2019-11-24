@@ -18,6 +18,7 @@ public class DropTokenService {
     }
     
     public static func initBoard() {
+        apiMoves = []
         board = Array(repeating: Array(repeating: 0, count: 4), count: 4)
         for i in 0...3 {
             for j in 0...3 {
@@ -96,6 +97,7 @@ public class DropTokenService {
             }
             if board[i][nextMove] == 0 {
                 board[i][nextMove] = currentPlayer
+                apiMoves.append(nextMove)
                 moveMade = true
                 if validateWin(i, nextMove, currentPlayer) {
                     return .Win
