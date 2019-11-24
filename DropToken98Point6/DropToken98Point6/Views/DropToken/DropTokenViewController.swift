@@ -12,12 +12,23 @@ class DropTokenViewController: UIViewController {
     // State var within view controller
     var currentPlayer : Int = 1 {
         didSet {
-            ResultLabel.text = "Player " + String(currentPlayer) + "'s turn"
+            
         }
     }
-    var isGameFinished : Bool = false
+    var isGameFinished : Bool = false {
+        didSet {
+            var delay = 0.0
+            if isGameFinished == true {
+                delay = 0.5
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                self.GameResultView.isHidden = !self.isGameFinished
+            })
+        }
+    }
     var imagePicker : UIImagePickerController!
     var selectedProfileToken : Int? = nil
+    @IBOutlet weak var GameResultView: UIView!
     @IBOutlet weak var PlayerOneTextField: UITextField!
     @IBOutlet weak var PlayerOneTokenBtn: UIButton!
     @IBAction func PlayerTokenBtnPressed(_ sender: UIButton) {
@@ -36,13 +47,13 @@ class DropTokenViewController: UIViewController {
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
         initBoard()
     }
+    @IBAction func ShareBtnPressed(_ sender: UIButton) {
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initBoard()
         setupUIComponents()
-        // Do any additional setup after loading the view.
-        DropTokenCollection.backgroundColor = UIColor.lightGray
     }
     
     func setupUIComponents() {
@@ -56,6 +67,9 @@ class DropTokenViewController: UIViewController {
         imagePicker.allowsEditing = true
         imagePicker.sourceType = .photoLibrary
         imagePicker.delegate = self
+        
+        DropTokenCollection.backgroundColor = UIColor.lightGray
+        DropTokenCollection.layer.cornerRadius = 14
     }
     
     func initBoard() {
@@ -82,8 +96,8 @@ class DropTokenViewController: UIViewController {
         case .Draw:
             ResultLabel.text = "Draw!"
             isGameFinished = true
-        default:
-            ResultLabel.text = "Invalid move, please try again"
+        case .Invalid:
+            print("Invalid move, please try again")
         }
         // Update board UI
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
