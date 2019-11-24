@@ -48,6 +48,8 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             if isGameFinished == true && DropTokenService.shouldHighlightCell(indexPath.section, indexPath.item) {
                 cell.tokenImage.layer.borderColor = UIColor.purple.cgColor
                 cell.tokenImage.layer.borderWidth = 2
+                let animation = animatePulsatingLayer()
+                cell.tokenImage.layer.add(animation, forKey: "rotationAnimation")
             } else {
                 cell.tokenImage.layer.borderColor = UIColor.white.cgColor
                 cell.tokenImage.layer.borderWidth = 0
@@ -55,7 +57,6 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.tokenImage.layer.cornerRadius = 30
             return cell
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

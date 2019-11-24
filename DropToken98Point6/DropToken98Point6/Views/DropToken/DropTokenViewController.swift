@@ -114,5 +114,14 @@ class DropTokenViewController: UIViewController {
             }
         }
     }
+    
+    func animatePulsatingLayer() -> CABasicAnimation {
+        let basicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        basicAnimation.byValue = Double.pi * 2
+        basicAnimation.duration = 3
+        basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
+        basicAnimation.repeatCount = .infinity
+        return basicAnimation
+    }
 }
 
