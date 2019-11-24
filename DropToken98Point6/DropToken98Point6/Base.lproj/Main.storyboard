@@ -55,7 +55,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R1J-gI-CsZ">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="R1J-gI-CsZ">
                                                     <rect key="frame" x="15" y="15" width="60" height="60"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="60" id="gGU-QP-chz"/>
@@ -104,12 +104,104 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="lHY-Nw-1Ff"/>
                                 </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vpu-Ut-fQ8">
+                                <rect key="frame" x="16" y="681" width="382" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Customize player names and tokens" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aqu-dP-jy6">
+                                        <rect key="frame" x="0.0" y="0.0" width="382" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="4ow-Lg-dPD"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <color key="textColor" white="0.33333333329999998" alpha="0.9295269692" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="prm-Ch-KYz">
+                                        <rect key="frame" x="0.0" y="30" width="382" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Player 1" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BPG-DQ-s0D">
+                                                <rect key="frame" x="8" y="13" width="292" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="64E-sE-Dpb">
+                                                <rect key="frame" x="316" y="5" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="H25-o2-fma"/>
+                                                    <constraint firstAttribute="width" constant="50" id="HCH-aV-s6c"/>
+                                                </constraints>
+                                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" image="photo" catalog="system"/>
+                                                <connections>
+                                                    <action selector="PlayerTokenBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="v91-r6-Fn2"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstItem="BPG-DQ-s0D" firstAttribute="leading" secondItem="prm-Ch-KYz" secondAttribute="leading" constant="8" id="GMA-kC-1O3"/>
+                                            <constraint firstAttribute="trailing" secondItem="64E-sE-Dpb" secondAttribute="trailing" constant="16" id="RKZ-nv-eMc"/>
+                                            <constraint firstItem="BPG-DQ-s0D" firstAttribute="top" secondItem="prm-Ch-KYz" secondAttribute="top" constant="13" id="VlO-q6-Lq2"/>
+                                            <constraint firstItem="64E-sE-Dpb" firstAttribute="leading" secondItem="BPG-DQ-s0D" secondAttribute="trailing" constant="16" id="Wa8-ga-QLE"/>
+                                            <constraint firstAttribute="height" constant="60" id="jI9-Dg-tBO"/>
+                                            <constraint firstItem="64E-sE-Dpb" firstAttribute="top" secondItem="prm-Ch-KYz" secondAttribute="top" constant="5" id="vAb-hE-vmK"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EGZ-pu-1Zl">
+                                        <rect key="frame" x="0.0" y="90" width="382" height="60"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Player 2" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KKh-wT-fRW">
+                                                <rect key="frame" x="8" y="13" width="292" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="goE-ho-JB0">
+                                                <rect key="frame" x="316" y="5" width="50" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="KqL-b9-TnF"/>
+                                                    <constraint firstAttribute="width" constant="50" id="SfS-PO-257"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="0.92688677230000005" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <state key="normal" image="photo" catalog="system"/>
+                                                <connections>
+                                                    <action selector="PlayerTwoTokenBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ld4-CF-ncg"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="goE-ho-JB0" secondAttribute="trailing" constant="16" id="2JD-Pa-NMK"/>
+                                            <constraint firstItem="KKh-wT-fRW" firstAttribute="top" secondItem="EGZ-pu-1Zl" secondAttribute="top" constant="13" id="Fre-tm-YB4"/>
+                                            <constraint firstAttribute="height" constant="60" id="GAc-9D-FSA"/>
+                                            <constraint firstItem="goE-ho-JB0" firstAttribute="top" secondItem="EGZ-pu-1Zl" secondAttribute="top" constant="5" id="akK-kt-Fgb"/>
+                                            <constraint firstItem="KKh-wT-fRW" firstAttribute="leading" secondItem="EGZ-pu-1Zl" secondAttribute="leading" constant="8" id="uRX-4K-BLl"/>
+                                            <constraint firstItem="goE-ho-JB0" firstAttribute="leading" secondItem="KKh-wT-fRW" secondAttribute="trailing" constant="16" id="zUL-HB-u70"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="aqu-dP-jy6" secondAttribute="trailing" id="9iU-cp-8Gq"/>
+                                    <constraint firstAttribute="trailing" secondItem="EGZ-pu-1Zl" secondAttribute="trailing" id="CVN-Xf-Dma"/>
+                                    <constraint firstItem="aqu-dP-jy6" firstAttribute="leading" secondItem="Vpu-Ut-fQ8" secondAttribute="leading" id="HZs-v1-Ca3"/>
+                                    <constraint firstAttribute="height" constant="150" id="LwF-Xp-G88"/>
+                                    <constraint firstItem="aqu-dP-jy6" firstAttribute="top" secondItem="Vpu-Ut-fQ8" secondAttribute="top" id="W10-Xa-hw5"/>
+                                    <constraint firstItem="prm-Ch-KYz" firstAttribute="leading" secondItem="Vpu-Ut-fQ8" secondAttribute="leading" id="Z0X-J2-qS8"/>
+                                    <constraint firstItem="prm-Ch-KYz" firstAttribute="top" secondItem="aqu-dP-jy6" secondAttribute="bottom" constant="10" id="hOE-1V-GrC"/>
+                                    <constraint firstAttribute="trailing" secondItem="prm-Ch-KYz" secondAttribute="trailing" id="kem-GK-npv"/>
+                                    <constraint firstAttribute="bottom" secondItem="EGZ-pu-1Zl" secondAttribute="bottom" id="pHg-rc-VZq"/>
+                                    <constraint firstItem="EGZ-pu-1Zl" firstAttribute="leading" secondItem="Vpu-Ut-fQ8" secondAttribute="leading" id="ww4-Sf-74F"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="5w2-ZM-Wnl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7Bv-gn-eXM"/>
                             <constraint firstItem="5w2-ZM-Wnl" firstAttribute="top" secondItem="c0J-Tk-sWr" secondAttribute="bottom" constant="40" id="7fH-t1-0eb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Vpu-Ut-fQ8" secondAttribute="trailing" constant="16" id="8RN-vu-hSQ"/>
+                            <constraint firstItem="Vpu-Ut-fQ8" firstAttribute="top" secondItem="5w2-ZM-Wnl" secondAttribute="bottom" constant="8" id="B1A-WT-Kll"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RD5-6w-aAO" secondAttribute="trailing" constant="16" id="CLp-RY-sbV"/>
+                            <constraint firstItem="Vpu-Ut-fQ8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="gd4-H8-a36"/>
                             <constraint firstItem="RD5-6w-aAO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hIJ-8f-0ag"/>
                             <constraint firstItem="5w2-ZM-Wnl" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="lby-33-49P"/>
                             <constraint firstItem="c0J-Tk-sWr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tVW-Nf-FY8"/>
@@ -119,6 +211,11 @@
                     </view>
                     <connections>
                         <outlet property="DropTokenCollection" destination="5w2-ZM-Wnl" id="FGw-qs-h0L"/>
+                        <outlet property="PlayerOneTextField" destination="BPG-DQ-s0D" id="sPN-Yg-yce"/>
+                        <outlet property="PlayerOneTokenBtn" destination="64E-sE-Dpb" id="E3y-nE-0lm"/>
+                        <outlet property="PlayerTwoTextField" destination="KKh-wT-fRW" id="GZq-Hp-eHn"/>
+                        <outlet property="PlayerTwoTokenBtn" destination="goE-ho-JB0" id="Qx1-SD-NFi"/>
+                        <outlet property="PlayerTwoView" destination="EGZ-pu-1Zl" id="GWm-7e-hr5"/>
                         <outlet property="ResultLabel" destination="RD5-6w-aAO" id="yEU-x6-6QC"/>
                     </connections>
                 </viewController>
@@ -131,5 +228,6 @@
         <image name="chevron.up.circle" catalog="system" width="64" height="60"/>
         <image name="chevron.up.circle.fill" catalog="system" width="64" height="60"/>
         <image name="gobackward" catalog="system" width="60" height="64"/>
+        <image name="photo" catalog="system" width="64" height="46"/>
     </resources>
 </document>

@@ -20,6 +20,7 @@
 		DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */; };
 		DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */; };
 		DE7FAB11238A4F96008DF72C /* DropTokenApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */; };
+		DE7FAB13238A6EB7008DF72C /* DropTokenImagePickerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionExtension.swift; sourceTree = "<group>"; };
 		DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewBtnCell.swift; sourceTree = "<group>"; };
 		DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenApi.swift; sourceTree = "<group>"; };
+		DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenImagePickerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */,
+				DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */,
+				DE7FAB13238A6EB7008DF72C /* DropTokenImagePickerExtension.swift in Sources */,
 				DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */,
 				DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */,
 				DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */,

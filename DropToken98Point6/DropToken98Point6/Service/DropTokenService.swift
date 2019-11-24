@@ -86,6 +86,20 @@ public class DropTokenService {
         }
     }
     
+    public static func decideCellImage(_ x: Int, _ y: Int) -> UIImage? {
+        let cellValue = board[x][y]
+        if cellValue == 1 {
+            if let imageData = UserDefaults.standard.data(forKey: "playerOneProfile") {
+                return UIImage(data: imageData)
+            }
+        } else if cellValue == 2 {
+            if let imageData = UserDefaults.standard.data(forKey: "playerTwoProfile") {
+                return UIImage(data: imageData)
+            }
+        }
+        return nil
+    }
+    
     public static func makeAMove(_ nextMove: Int, _ currentPlayer: Int) -> moveResult {
         var moveMade = false
         if board[0][nextMove] != 0 {

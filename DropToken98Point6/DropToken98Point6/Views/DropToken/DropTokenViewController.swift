@@ -15,7 +15,22 @@ class DropTokenViewController: UIViewController {
             ResultLabel.text = "Player " + String(currentPlayer) + "'s turn"
         }
     }
-    
+    var isGameFinished : Bool = false
+    var imagePicker : UIImagePickerController!
+    var selectedProfileToken : Int? = nil
+    @IBOutlet weak var PlayerOneTextField: UITextField!
+    @IBOutlet weak var PlayerOneTokenBtn: UIButton!
+    @IBAction func PlayerTokenBtnPressed(_ sender: UIButton) {
+        selectedProfileToken = 1
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    @IBOutlet weak var PlayerTwoView: UIView!
+    @IBOutlet weak var PlayerTwoTextField: UITextField!
+    @IBOutlet weak var PlayerTwoTokenBtn: UIButton!
+    @IBAction func PlayerTwoTokenBtnPressed(_ sender: UIButton) {
+        selectedProfileToken = 2
+        self.present(imagePicker, animated: true, completion: nil)
+    }
     @IBOutlet weak var ResultLabel: UILabel!
     @IBOutlet weak var DropTokenCollection: UICollectionView!
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
@@ -25,14 +40,28 @@ class DropTokenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initBoard()
+        setupUIComponents()
         // Do any additional setup after loading the view.
         DropTokenCollection.backgroundColor = UIColor.lightGray
+    }
+    
+    func setupUIComponents() {
+        PlayerOneTokenBtn.backgroundColor = UIColor.red
+        PlayerOneTokenBtn.layer.cornerRadius = 25
+        
+        PlayerTwoTokenBtn.backgroundColor = UIColor.blue
+        PlayerTwoTokenBtn.layer.cornerRadius = 25
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
     }
     
     func initBoard() {
         DropTokenService.initBoard()
         currentPlayer = 1
-        toggleBtns(true)
+        isGameFinished = false
         DispatchQueue.main.async(execute: {
            self.DropTokenCollection.reloadData()
         })
@@ -47,10 +76,10 @@ class DropTokenViewController: UIViewController {
             currentPlayer = currentPlayer == 1 ? 2 : 1
         case .Win:
             ResultLabel.text = "Player " + String(currentPlayer) + " WINS!"
-            toggleBtns(false)
+            isGameFinished = true
         case .Draw:
             ResultLabel.text = "Draw!"
-            toggleBtns(false)
+            isGameFinished = true
         default:
             ResultLabel.text = "Invalid move, please try again"
         }
