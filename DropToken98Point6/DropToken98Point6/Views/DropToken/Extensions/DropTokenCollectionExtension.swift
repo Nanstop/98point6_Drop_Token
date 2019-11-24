@@ -24,7 +24,7 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.InsertTokenBtn.tag = indexPath.item
             cell.InsertTokenBtn.addTarget(self, action: #selector(makeAMove), for: .touchUpInside)
             if isGameFinished == true {
-                cell.InsertTokenBtn.isEnabled = true
+                cell.InsertTokenBtn.isEnabled = false
             } else {
                 cell.InsertTokenBtn.isEnabled = DropTokenService.isColumnAvailable(indexPath.item)
             }
@@ -35,6 +35,12 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.backgroundColor = UIColor.clear
             if let possibleCustomToken = DropTokenService.decideCellImage(indexPath.section, indexPath.item) {
                 cell.tokenImage.image = possibleCustomToken
+                cell.tokenImage.clipsToBounds = true
+                cell.tokenImage.translatesAutoresizingMaskIntoConstraints = false
+                cell.tokenImage.contentMode = .scaleAspectFill
+                cell.tokenImage.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
+                let rotationDegree = DropTokenService.tokenRotation[indexPath.section][indexPath.item]
+                cell.tokenImage.transform = CGAffineTransform(rotationAngle: CGFloat(rotationDegree))
             } else {
                 cell.tokenImage.image = nil
                 cell.tokenImage.backgroundColor = DropTokenService.decideCellColor(indexPath.section, indexPath.item)

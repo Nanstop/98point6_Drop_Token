@@ -11,6 +11,7 @@ import UIKit
 
 public class DropTokenService {
     public static var board : [[Int]] = []
+    public static var tokenRotation : [[Int]] = []
     public static var apiMoves : [Int] = []
     public static var diagnalMap : [Int] = [3,2,1,0]
     public enum moveResult {
@@ -20,9 +21,11 @@ public class DropTokenService {
     public static func initBoard() {
         apiMoves = []
         board = Array(repeating: Array(repeating: 0, count: 4), count: 4)
+        tokenRotation = Array(repeating: Array(repeating: 0, count: 4), count: 4)
         for i in 0...3 {
             for j in 0...3 {
                 board[i][j] = 0
+                tokenRotation[i][j] = 0
             }
         }
     }
@@ -76,7 +79,11 @@ public class DropTokenService {
     
     public static func decideCellColor(_ x: Int, _ y: Int) -> UIColor {
         let cellValue = board[x][y]
-        switch cellValue {
+        return decideCellColorByPlayerId(cellValue)
+    }
+    
+    public static func decideCellColorByPlayerId(_ id: Int) -> UIColor {
+        switch id {
         case 1:
             return UIColor.red
         case 2:
@@ -88,11 +95,15 @@ public class DropTokenService {
     
     public static func decideCellImage(_ x: Int, _ y: Int) -> UIImage? {
         let cellValue = board[x][y]
-        if cellValue == 1 {
+        return decideCellImageByPlayerId(cellValue)
+    }
+    
+    public static func decideCellImageByPlayerId(_ id: Int) -> UIImage? {
+        if id == 1 {
             if let imageData = UserDefaults.standard.data(forKey: "playerOneProfile") {
                 return UIImage(data: imageData)
             }
-        } else if cellValue == 2 {
+        } else if id == 2 {
             if let imageData = UserDefaults.standard.data(forKey: "playerTwoProfile") {
                 return UIImage(data: imageData)
             }
@@ -100,7 +111,7 @@ public class DropTokenService {
         return nil
     }
     
-    public static func makeAMove(_ nextMove: Int, _ currentPlayer: Int) -> moveResult {
+    public static func makeAMove(_ nextMove: Int, _ currentPlayer: Int, _ tokenRotationDegree: Int) -> moveResult {
         var moveMade = false
         if board[0][nextMove] != 0 {
             return .Invalid
@@ -111,6 +122,7 @@ public class DropTokenService {
             }
             if board[i][nextMove] == 0 {
                 board[i][nextMove] = currentPlayer
+                tokenRotation[i][nextMove] = tokenRotationDegree
                 apiMoves.append(nextMove)
                 moveMade = true
                 if validateWin(i, nextMove, currentPlayer) {
@@ -118,11 +130,20 @@ public class DropTokenService {
                 }
             }
         }
-        if moveMade == false {
+        if isDraw() == true {
             return .Draw
         } else {
             return .Valid
         }
+    }
+    
+    private static func isDraw() -> Bool {
+        for i in 0...3 {
+            if board[0][i] == 0 {
+                return false
+            }
+        }
+        return true
     }
     
     public static func isColumnAvailable(_ colIndex: Int) -> Bool {

@@ -67,12 +67,14 @@ class DropTokenViewController: UIViewController {
         })
     }
     
-    // Call API to get next move
+    // Attempt to make next move
     @objc func makeAMove(_ sender: UIButton) {
         let nextMove = sender.tag
-        let result = DropTokenService.makeAMove(nextMove, currentPlayer)
+        let randomTokenRotationDegree = Int.random(in: -360...360)
+        let result = DropTokenService.makeAMove(nextMove, currentPlayer, randomTokenRotationDegree)
         switch result {
         case .Valid:
+            animateDrop(nextMove)
             currentPlayer = currentPlayer == 1 ? 2 : 1
         case .Win:
             ResultLabel.text = "Player " + String(currentPlayer) + " WINS!"
@@ -84,21 +86,33 @@ class DropTokenViewController: UIViewController {
             ResultLabel.text = "Invalid move, please try again"
         }
         // Update board UI
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
             self.DropTokenCollection.reloadData()
         })
     }
     
-    func toggleBtns(_ state: Bool) {
-        for i in 0...4 {
-            let indexPath = IndexPath(row: i, section: 4)
-            if let cell = DropTokenCollection.cellForItem(at: indexPath) as? DropTokenCollectionViewBtnCell {
-                cell.InsertTokenBtn.isEnabled = state
+    func animateDrop(_ colIndex: Int) {
+        for i in 0...3 {
+            var pendingIndexPath : [IndexPath] = []
+            // Clean up previous cell
+            if i > 0 {
+                // Remove previous cell color
+                DropTokenService.board[i-1][colIndex] = 0
+                let indexPath = IndexPath(row: colIndex, section: i - 1)
+                pendingIndexPath.append(indexPath)
+            }
+            // Fill current cell
+            if DropTokenService.board[i][colIndex] == 0 {
+                DropTokenService.board[i][colIndex] = currentPlayer
+                let indexPath = IndexPath(row: colIndex, section: i)
+                pendingIndexPath.append(indexPath)
+            } else {
+                return
+            }
+            if pendingIndexPath.count > 0 {
+                DropTokenCollection.reloadItems(at: pendingIndexPath)
             }
         }
-        DispatchQueue.main.async(execute: {
-           self.DropTokenCollection.reloadData()
-        })
     }
 }
 
