@@ -14,12 +14,14 @@ public class DropTokenService {
     public static var tokenRotation : [[Int]] = []
     public static var apiMoves : [Int] = []
     public static var diagnalMap : [Int] = [3,2,1,0]
+    public static var winningCoords : [[Int]] = []
     public enum moveResult {
         case Valid, Invalid, Win, Draw
     }
     
     public static func initBoard() {
         apiMoves = []
+        winningCoords = []
         board = Array(repeating: Array(repeating: 0, count: 4), count: 4)
         tokenRotation = Array(repeating: Array(repeating: 0, count: 4), count: 4)
         for i in 0...3 {
@@ -30,10 +32,12 @@ public class DropTokenService {
         }
     }
     
-    public static func validateWin(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool{
+    public static func validateWin(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
         var result = true
+        winningCoords = []
         // check horizontal
         for i in 0...3 {
+            winningCoords.append([i,y])
             if board[i][y] != currentPlayer {
                 result = false
                 break
@@ -43,9 +47,11 @@ public class DropTokenService {
             return result
         } else {
             result = true
+            winningCoords = []
         }
         // check vertical
         for j in 0...3 {
+            winningCoords.append([x,j])
             if board[x][j] != currentPlayer {
                 result = false
                 break
@@ -55,10 +61,12 @@ public class DropTokenService {
             return result
         } else {
             result = true
+            winningCoords = []
         }
         // check diagnal
         if x == y {
             for i in 0...3 {
+                winningCoords.append([i,i])
                 if board[i][i] != currentPlayer {
                     result = false
                     break
@@ -66,6 +74,7 @@ public class DropTokenService {
             }
         } else if x == 3 - y {
             for j in 0...3 {
+                winningCoords.append([j,diagnalMap[j]])
                 if board[j][diagnalMap[j]] != currentPlayer {
                     result = false
                     break
@@ -148,5 +157,9 @@ public class DropTokenService {
     
     public static func isColumnAvailable(_ colIndex: Int) -> Bool {
         return board[0][colIndex] == 0
+    }
+    
+    public static func shouldHighlightCell(_ x: Int, _ y: Int) -> Bool {
+        return winningCoords.contains([x,y])
     }
 }

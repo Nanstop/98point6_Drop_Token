@@ -45,6 +45,13 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.tokenImage.image = nil
                 cell.tokenImage.backgroundColor = DropTokenService.decideCellColor(indexPath.section, indexPath.item)
             }
+            if isGameFinished == true && DropTokenService.shouldHighlightCell(indexPath.section, indexPath.item) {
+                cell.tokenImage.layer.borderColor = UIColor.purple.cgColor
+                cell.tokenImage.layer.borderWidth = 2
+            } else {
+                cell.tokenImage.layer.borderColor = UIColor.white.cgColor
+                cell.tokenImage.layer.borderWidth = 0
+            }
             cell.tokenImage.layer.cornerRadius = 30
             return cell
         }
