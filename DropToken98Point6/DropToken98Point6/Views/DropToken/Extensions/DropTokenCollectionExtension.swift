@@ -11,7 +11,7 @@ import UIKit
 
 extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 4
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -19,14 +19,27 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenCollectionCell", for: indexPath) as! DropTokenCollectionViewCell
-        cell.backgroundColor = UIColor.clear
-        cell.tokenImage.backgroundColor = DropTokenService.decideCellColor(indexPath.section, indexPath.item)
-        cell.tokenImage.layer.cornerRadius = 30
-        return cell
+        if indexPath.section == 4 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenBtnCollectionCell", for: indexPath) as! DropTokenCollectionViewBtnCell
+            cell.InsertTokenBtn.tag = indexPath.item
+            cell.InsertTokenBtn.addTarget(self, action: #selector(makeAMove), for: .touchUpInside)
+            cell.InsertTokenBtn.isEnabled = DropTokenService.isColumnAvailable(indexPath.item)
+            cell.backgroundColor = UIColor.white
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenCollectionCell", for: indexPath) as! DropTokenCollectionViewCell
+            cell.backgroundColor = UIColor.clear
+            cell.tokenImage.backgroundColor = DropTokenService.decideCellColor(indexPath.section, indexPath.item)
+            cell.tokenImage.layer.cornerRadius = 30
+            return cell
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 4 {
+            return CGSize(width: 90, height: 90)
+        }
         return CGSize(width: 90, height: 90)
     }
 }

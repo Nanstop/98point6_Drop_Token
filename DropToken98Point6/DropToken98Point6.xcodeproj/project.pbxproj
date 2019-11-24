@@ -18,6 +18,7 @@
 		DE7FAB04238655C6008DF72C /* DropTokenCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */; };
 		DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB062389E7DB008DF72C /* DropTokenService.swift */; };
 		DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */; };
+		DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewCell.swift; sourceTree = "<group>"; };
 		DE7FAB062389E7DB008DF72C /* DropTokenService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenService.swift; sourceTree = "<group>"; };
 		DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionExtension.swift; sourceTree = "<group>"; };
+		DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewBtnCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				DE7FAB092389EA48008DF72C /* Extensions */,
 				DE7FAB03238655C6008DF72C /* DropTokenCollectionViewCell.swift */,
 				DE7FAAD6238634E6008DF72C /* DropTokenViewController.swift */,
+				DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */,
 			);
 			path = DropToken;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */,
 				DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */,
 				DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */,
 				DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */,

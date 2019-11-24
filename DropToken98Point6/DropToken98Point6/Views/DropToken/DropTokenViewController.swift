@@ -17,29 +17,9 @@ class DropTokenViewController: UIViewController {
     }
     
     @IBOutlet weak var ResultLabel: UILabel!
+    @IBOutlet weak var DropTokenCollection: UICollectionView!
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
         initBoard()
-    }
-
-    @IBOutlet weak var DropTokenCollection: UICollectionView!
-    @IBOutlet weak var ColOneBtn: UIButton!
-    @IBAction func ColOneBtnPressed(_ sender: UIButton) {
-        makeAMove(0)
-    }
-    
-    @IBOutlet weak var ColTwoBtn: UIButton!
-    @IBAction func ColTwoBtnPressed(_ sender: UIButton) {
-        makeAMove(1)
-    }
-    
-    @IBOutlet weak var ColThreeBtn: UIButton!
-    @IBAction func ColThreeBtnPressed(_ sender: UIButton) {
-        makeAMove(2)
-    }
-    
-    @IBOutlet weak var ColFourBtn: UIButton!
-    @IBAction func ColFourBtnPressed(_ sender: UIButton) {
-        makeAMove(3)
     }
     
     override func viewDidLoad() {
@@ -52,57 +32,44 @@ class DropTokenViewController: UIViewController {
     func initBoard() {
         DropTokenService.initBoard()
         currentPlayer = 1
-        toggleBtns(false)
+        toggleBtns(true)
         DispatchQueue.main.async(execute: {
            self.DropTokenCollection.reloadData()
         })
     }
     
     // Call API to get next move
-    func makeAMove(_ nextMove: Int) {
+    @objc func makeAMove(_ sender: UIButton) {
+        let nextMove = sender.tag
         let result = DropTokenService.makeAMove(nextMove, currentPlayer)
+        switch result {
+        case .Valid:
+            currentPlayer = currentPlayer == 1 ? 2 : 1
+        case .Win:
+            ResultLabel.text = "Player " + String(currentPlayer) + " WINS!"
+            toggleBtns(false)
+        case .Draw:
+            ResultLabel.text = "Draw!"
+            toggleBtns(false)
+        default:
+            ResultLabel.text = "Invalid move, please try again"
+        }
         // Update board UI
         DispatchQueue.main.async(execute: {
             self.DropTokenCollection.reloadData()
         })
-        switch result {
-        case .Valid:
-            if !DropTokenService.isColumnAvailable(nextMove) {
-                disableCurrentColumn(nextMove)
-            }
-            currentPlayer = currentPlayer == 1 ? 2 : 1
-        case .Win:
-            ResultLabel.text = "Player " + String(currentPlayer) + " WINS!"
-            toggleBtns(true)
-        case .Draw:
-            ResultLabel.text = "Draw!"
-            toggleBtns(true)
-        default:
-            ResultLabel.text = "Invalid move, please try again"
-        }
-    }
-    
-    func disableCurrentColumn(_ col: Int) {
-        switch col {
-            case 0:
-                ColOneBtn.isHidden = true
-            case 1:
-                ColTwoBtn.isHidden = true
-            case 2:
-                ColThreeBtn.isHidden = true
-            case 3:
-                ColFourBtn.isHidden = true
-                
-            default:
-                return
-        }
     }
     
     func toggleBtns(_ state: Bool) {
-        ColOneBtn.isHidden = state
-        ColTwoBtn.isHidden = state
-        ColThreeBtn.isHidden = state
-        ColFourBtn.isHidden = state
+        for i in 0...4 {
+            let indexPath = IndexPath(row: i, section: 4)
+            if let cell = DropTokenCollection.cellForItem(at: indexPath) as? DropTokenCollectionViewBtnCell {
+                cell.InsertTokenBtn.isEnabled = state
+            }
+        }
+        DispatchQueue.main.async(execute: {
+           self.DropTokenCollection.reloadData()
+        })
     }
 }
 
