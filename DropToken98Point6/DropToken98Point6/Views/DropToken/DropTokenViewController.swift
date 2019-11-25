@@ -50,6 +50,12 @@ class DropTokenViewController: UIViewController {
         initBoard()
     }
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
+        GameResultView.isHidden = true
+        // Take screenshot
+        let screenshot = self.view.screenshot()
+        let activityVC = UIActivityViewController(activityItems: [screenshot], applicationActivities: nil)
+        activityVC.popoverPresentationController?.sourceView = self.view
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -142,6 +148,14 @@ class DropTokenViewController: UIViewController {
         basicAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.linear)
         basicAnimation.repeatCount = .infinity
         return basicAnimation
+    }
+}
+
+extension UIView {
+    func screenshot() -> UIImage {
+        return UIGraphicsImageRenderer(size: bounds.size).image { _ in
+            drawHierarchy(in: CGRect(origin: .zero, size: bounds.size), afterScreenUpdates: true)
+      }
     }
 }
 
