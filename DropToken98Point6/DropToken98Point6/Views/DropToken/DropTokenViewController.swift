@@ -12,7 +12,10 @@ class DropTokenViewController: UIViewController {
     // State var within view controller
     var currentPlayer : Int = 1 {
         didSet {
-            
+            PlayerOneTokenBtn.layer.borderWidth = currentPlayer == 1 ? 3 : 0
+            PlayerOneTokenBtn.layer.borderColor = UIColor.gray.cgColor
+            PlayerTwoTokenBtn.layer.borderWidth = currentPlayer == 1 ? 0 : 3
+            PlayerTwoTokenBtn.layer.borderColor = UIColor.gray.cgColor
         }
     }
     var isGameFinished : Bool = false {
@@ -28,15 +31,14 @@ class DropTokenViewController: UIViewController {
     }
     var imagePicker : UIImagePickerController!
     var selectedProfileToken : Int? = nil
+    
     @IBOutlet weak var GameResultView: UIView!
-    @IBOutlet weak var PlayerOneTextField: UITextField!
     @IBOutlet weak var PlayerOneTokenBtn: UIButton!
     @IBAction func PlayerTokenBtnPressed(_ sender: UIButton) {
         selectedProfileToken = 1
         self.present(imagePicker, animated: true, completion: nil)
     }
     @IBOutlet weak var PlayerTwoView: UIView!
-    @IBOutlet weak var PlayerTwoTextField: UITextField!
     @IBOutlet weak var PlayerTwoTokenBtn: UIButton!
     @IBAction func PlayerTwoTokenBtnPressed(_ sender: UIButton) {
         selectedProfileToken = 2
@@ -58,10 +60,10 @@ class DropTokenViewController: UIViewController {
     
     func setupUIComponents() {
         PlayerOneTokenBtn.backgroundColor = UIColor.red
-        PlayerOneTokenBtn.layer.cornerRadius = 25
+        PlayerOneTokenBtn.layer.cornerRadius = 50
         
         PlayerTwoTokenBtn.backgroundColor = UIColor.blue
-        PlayerTwoTokenBtn.layer.cornerRadius = 25
+        PlayerTwoTokenBtn.layer.cornerRadius = 50
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -70,6 +72,10 @@ class DropTokenViewController: UIViewController {
         
         DropTokenCollection.backgroundColor = UIColor.lightGray
         DropTokenCollection.layer.cornerRadius = 14
+        
+        GameResultView.layer.cornerRadius = 12
+        GameResultView.layer.borderWidth = 1
+        GameResultView.layer.borderColor = UIColor.darkGray.cgColor
     }
     
     func initBoard() {

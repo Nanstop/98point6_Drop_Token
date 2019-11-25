@@ -23,10 +23,13 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenBtnCollectionCell", for: indexPath) as! DropTokenCollectionViewBtnCell
             cell.InsertTokenBtn.tag = indexPath.item
             cell.InsertTokenBtn.addTarget(self, action: #selector(makeAMove), for: .touchUpInside)
+            cell.InsertTokenBtn.layer.borderWidth = 1
             if isGameFinished == true {
                 cell.InsertTokenBtn.isEnabled = false
+                cell.InsertTokenBtn.layer.borderColor = UIColor.lightGray.cgColor
             } else {
                 cell.InsertTokenBtn.isEnabled = DropTokenService.isColumnAvailable(indexPath.item)
+                cell.InsertTokenBtn.layer.borderColor = UIColor.blue.cgColor
             }
             cell.backgroundColor = UIColor.white
             return cell
