@@ -24,7 +24,8 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             cell.InsertTokenBtn.tag = indexPath.item
             cell.InsertTokenBtn.addTarget(self, action: #selector(moveInitiatedByPlayer), for: .touchUpInside)
             cell.InsertTokenBtn.layer.borderWidth = 1
-            if isGameFinished == true {
+            let isComputerNext = DropTokenService.isComputerNext()
+            if isGameFinished == true || (isComputerNext != nil && isComputerNext == true) {
                 cell.InsertTokenBtn.isEnabled = false
                 cell.InsertTokenBtn.layer.borderColor = UIColor.lightGray.cgColor
             } else {
@@ -53,7 +54,7 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             if isGameFinished == true && DropTokenService.shouldHighlightCell(indexPath.section, indexPath.item) {
                 cell.tokenImage.layer.borderColor = UIColor.purple.cgColor
                 cell.tokenImage.layer.borderWidth = 2
-                let animation = animatePulsatingLayer()
+                let animation = rotationAnimate()
                 cell.tokenImage.layer.add(animation, forKey: "rotationAnimation")
             } else {
                 cell.tokenImage.layer.borderColor = UIColor.white.cgColor

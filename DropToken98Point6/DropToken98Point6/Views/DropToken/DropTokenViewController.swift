@@ -13,6 +13,7 @@ class DropTokenViewController: UIViewController {
         didSet {
             var delay = 0.0
             if isGameFinished == true {
+                print(DropTokenService.game!.winningCoords)
                 delay = 0.5
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
@@ -148,32 +149,33 @@ class DropTokenViewController: UIViewController {
     
     func animateDrop(_ colIndex: Int) {
         guard let game = DropTokenService.game else { return }
-        for i in 0...3 {
-            var pendingIndexPath : [IndexPath] = []
-            // Clean up previous cell
-            if i > 0 {
-                // Remove previous cell color
-                game.board[i-1][colIndex] = 0
-                let indexPath = IndexPath(row: colIndex, section: i - 1)
-                pendingIndexPath.append(indexPath)
-            }
-            // Fill current cell
-            if game.board[i][colIndex] == 0 {
-                game.board[i][colIndex] = game.currentPlayer
-                let indexPath = IndexPath(row: colIndex, section: i)
-                pendingIndexPath.append(indexPath)
-            } else {
-                return
-            }
-            if pendingIndexPath.count > 0 {
-                DispatchQueue.main.async(execute: {
+        let previousPlayer = game.currentPlayer == 1 ? 2 : 1
+        DispatchQueue.main.async(execute: {
+            for i in 0...3 {
+                var pendingIndexPath : [IndexPath] = []
+                // Clean up previous cell
+                if i > 0 {
+                    // Remove previous cell color
+                    game.board[i-1][colIndex] = 0
+                    let indexPath = IndexPath(row: colIndex, section: i - 1)
+                    pendingIndexPath.append(indexPath)
+                }
+                // Fill current cell
+                if game.board[i][colIndex] == 0 {
+                    game.board[i][colIndex] = previousPlayer
+                    let indexPath = IndexPath(row: colIndex, section: i)
+                    pendingIndexPath.append(indexPath)
+                } else {
+                    return
+                }
+                if pendingIndexPath.count > 0 {
                     self.DropTokenCollection.reloadItems(at: pendingIndexPath)
-                })
+                }
             }
-        }
+        })
     }
     
-    func animatePulsatingLayer() -> CABasicAnimation {
+    func rotationAnimate() -> CABasicAnimation {
         let basicAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
         basicAnimation.byValue = Double.pi * 2
         basicAnimation.duration = 3
