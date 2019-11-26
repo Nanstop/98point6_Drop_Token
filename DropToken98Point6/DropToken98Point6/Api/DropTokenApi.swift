@@ -8,14 +8,10 @@
 
 import Foundation
 public class DropTokenApi {
-    let endPointUrl : String
+    public static let endPointUrl : String = "https://w0ayb2ph1k.execute-api.us-west-2.amazonaws.com/production"
     
-    init() {
-        self.endPointUrl = "https://w0ayb2ph1k.execute‐api.us‐west‐2.amazonaws.com/production"
-    }
-    
-    func makeAMoveByAI(Complition: @escaping ((_ returnedMoves: [Int]?) -> ())) {
-        let param = "?moves=[" + DropTokenService.apiMoves.map{String($0)}.joined(separator: ",") + "]"
+    public static func makeAMoveByAI(_ apiMoves: [Int], Complition: @escaping ((_ returnedMoves: [Int]?) -> ())) {
+        let param = "?moves=[" + apiMoves.map{String($0)}.joined(separator: ",") + "]"
         guard let requestURL = URL(string: self.endPointUrl + param) else { fatalError() }
         let dataTask = URLSession.shared.dataTask(with: requestURL) {
             data, response, error in
@@ -23,8 +19,15 @@ public class DropTokenApi {
                 Complition(nil)
                 return
             }
-            
-            //Complition(jsonData)
+            do {
+                let json = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
+                if let moves = json as? [Int] {
+                    Complition(moves)
+                    return
+                }
+            } catch {
+                print(error)
+            }
         }
         dataTask.resume()
     }

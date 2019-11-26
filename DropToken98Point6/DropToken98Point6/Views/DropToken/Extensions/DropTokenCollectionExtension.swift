@@ -22,7 +22,7 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
         if indexPath.section == 4 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenBtnCollectionCell", for: indexPath) as! DropTokenCollectionViewBtnCell
             cell.InsertTokenBtn.tag = indexPath.item
-            cell.InsertTokenBtn.addTarget(self, action: #selector(makeAMove), for: .touchUpInside)
+            cell.InsertTokenBtn.addTarget(self, action: #selector(moveInitiatedByPlayer), for: .touchUpInside)
             cell.InsertTokenBtn.layer.borderWidth = 1
             if isGameFinished == true {
                 cell.InsertTokenBtn.isEnabled = false
@@ -42,8 +42,10 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.tokenImage.translatesAutoresizingMaskIntoConstraints = false
                 cell.tokenImage.contentMode = .scaleAspectFill
                 cell.tokenImage.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
-                let rotationDegree = DropTokenService.tokenRotation[indexPath.section][indexPath.item]
-                cell.tokenImage.transform = CGAffineTransform(rotationAngle: CGFloat(rotationDegree))
+                if let game = DropTokenService.game {
+                    let rotationDegree = game.tokenRotation[indexPath.section][indexPath.item]
+                    cell.tokenImage.transform = CGAffineTransform(rotationAngle: CGFloat(rotationDegree))
+                }
             } else {
                 cell.tokenImage.image = nil
                 cell.tokenImage.backgroundColor = DropTokenService.decideCellColor(indexPath.section, indexPath.item)

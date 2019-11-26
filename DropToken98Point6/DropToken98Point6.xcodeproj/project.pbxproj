@@ -21,6 +21,9 @@
 		DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */; };
 		DE7FAB11238A4F96008DF72C /* DropTokenApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */; };
 		DE7FAB13238A6EB7008DF72C /* DropTokenImagePickerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */; };
+		DE7FAB19238B972B008DF72C /* DropTokenConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB18238B972B008DF72C /* DropTokenConfigViewController.swift */; };
+		DE7FAB1C238BAB9F008DF72C /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB1B238BAB9F008DF72C /* Player.swift */; };
+		DE7FAB1E238BAD47008DF72C /* DropTokenGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE7FAB1D238BAD47008DF72C /* DropTokenGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +64,9 @@
 		DE7FAB0D2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenCollectionViewBtnCell.swift; sourceTree = "<group>"; };
 		DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenApi.swift; sourceTree = "<group>"; };
 		DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenImagePickerExtension.swift; sourceTree = "<group>"; };
+		DE7FAB18238B972B008DF72C /* DropTokenConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenConfigViewController.swift; sourceTree = "<group>"; };
+		DE7FAB1B238BAB9F008DF72C /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		DE7FAB1D238BAD47008DF72C /* DropTokenGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropTokenGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +117,7 @@
 		DE7FAAD1238634E6008DF72C /* DropToken98Point6 */ = {
 			isa = PBXGroup;
 			children = (
+				DE7FAB1A238BAB7A008DF72C /* Models */,
 				DE7FAB0F238A4F63008DF72C /* Api */,
 				DE7FAB082389EA24008DF72C /* Views */,
 				DE7FAB052389E7B6008DF72C /* Service */,
@@ -153,6 +160,7 @@
 		DE7FAB082389EA24008DF72C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				DE7FAB17238B96FD008DF72C /* DropTokenConfig */,
 				DE7FAB0C2389EAB0008DF72C /* DropToken */,
 			);
 			path = Views;
@@ -184,6 +192,23 @@
 				DE7FAB10238A4F96008DF72C /* DropTokenApi.swift */,
 			);
 			path = Api;
+			sourceTree = "<group>";
+		};
+		DE7FAB17238B96FD008DF72C /* DropTokenConfig */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB18238B972B008DF72C /* DropTokenConfigViewController.swift */,
+			);
+			path = DropTokenConfig;
+			sourceTree = "<group>";
+		};
+		DE7FAB1A238BAB7A008DF72C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB1B238BAB9F008DF72C /* Player.swift */,
+				DE7FAB1D238BAD47008DF72C /* DropTokenGame.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,14 +342,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE7FAB1C238BAB9F008DF72C /* Player.swift in Sources */,
 				DE7FAB0E2389F839008DF72C /* DropTokenCollectionViewBtnCell.swift in Sources */,
 				DE7FAB13238A6EB7008DF72C /* DropTokenImagePickerExtension.swift in Sources */,
 				DE7FAB072389E7DB008DF72C /* DropTokenService.swift in Sources */,
 				DE7FAAD7238634E6008DF72C /* DropTokenViewController.swift in Sources */,
 				DE7FAAD3238634E6008DF72C /* AppDelegate.swift in Sources */,
+				DE7FAB19238B972B008DF72C /* DropTokenConfigViewController.swift in Sources */,
 				DE7FAAD5238634E6008DF72C /* SceneDelegate.swift in Sources */,
 				DE7FAB11238A4F96008DF72C /* DropTokenApi.swift in Sources */,
 				DE7FAB0B2389EA99008DF72C /* DropTokenCollectionExtension.swift in Sources */,
+				DE7FAB1E238BAD47008DF72C /* DropTokenGame.swift in Sources */,
 				DE7FAB04238655C6008DF72C /* DropTokenCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

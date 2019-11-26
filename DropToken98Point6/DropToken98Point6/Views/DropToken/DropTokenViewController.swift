@@ -9,15 +9,6 @@
 import UIKit
 
 class DropTokenViewController: UIViewController {
-    // State var within view controller
-    var currentPlayer : Int = 1 {
-        didSet {
-            PlayerOneTokenBtn.layer.borderWidth = currentPlayer == 1 ? 3 : 0
-            PlayerOneTokenBtn.layer.borderColor = UIColor.gray.cgColor
-            PlayerTwoTokenBtn.layer.borderWidth = currentPlayer == 1 ? 0 : 3
-            PlayerTwoTokenBtn.layer.borderColor = UIColor.gray.cgColor
-        }
-    }
     var isGameFinished : Bool = false {
         didSet {
             var delay = 0.0
@@ -28,6 +19,21 @@ class DropTokenViewController: UIViewController {
                 self.GameResultView.isHidden = !self.isGameFinished
             })
         }
+    }
+    
+    var nextTurnReady : Int = 0 {
+        didSet {
+            if let isComputerNext = DropTokenService.isComputerNext() {
+                if isComputerNext == true {
+                    self.moveInitiatedByComputer()
+                }
+            }
+        }
+    }
+    
+    @IBAction func BackBtnPressed(_ sender: UIButton) {
+        DropTokenService.game = nil
+        self.dismiss(animated: true, completion: nil)
     }
     var imagePicker : UIImagePickerController!
     var selectedProfileToken : Int? = nil
@@ -47,7 +53,8 @@ class DropTokenViewController: UIViewController {
     @IBOutlet weak var ResultLabel: UILabel!
     @IBOutlet weak var DropTokenCollection: UICollectionView!
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
-        initBoard()
+        DropTokenService.reset()
+        gameStart()
     }
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
         GameResultView.isHidden = true
@@ -60,8 +67,12 @@ class DropTokenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initBoard()
         setupUIComponents()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        gameStart()
     }
     
     func setupUIComponents() {
@@ -84,29 +95,26 @@ class DropTokenViewController: UIViewController {
         GameResultView.layer.borderColor = UIColor.darkGray.cgColor
     }
     
-    func initBoard() {
-        DropTokenService.initBoard()
-        currentPlayer = 1
+    func gameStart() {
         isGameFinished = false
         DispatchQueue.main.async(execute: {
-           self.DropTokenCollection.reloadData()
+            self.DropTokenCollection.reloadData()
         })
+        nextTurnReady += 1
     }
     
-    // Attempt to make next move
-    @objc func makeAMove(_ sender: UIButton) {
-        let nextMove = sender.tag
+    func makeAMove(_ nextMove: Int) {
         let randomTokenRotationDegree = Int.random(in: -360...360)
-        let result = DropTokenService.makeAMove(nextMove, currentPlayer, randomTokenRotationDegree)
+        let result = DropTokenService.makeAMove(nextMove, randomTokenRotationDegree)
+        var gameResult = ""
         switch result {
         case .Valid:
             animateDrop(nextMove)
-            currentPlayer = currentPlayer == 1 ? 2 : 1
         case .Win:
-            ResultLabel.text = "Player " + String(currentPlayer) + " WINS!"
+            gameResult = DropTokenService.getWinnerString()
             isGameFinished = true
         case .Draw:
-            ResultLabel.text = "Draw!"
+            gameResult = "Draw!"
             isGameFinished = true
         case .Invalid:
             print("Invalid move, please try again")
@@ -114,29 +122,54 @@ class DropTokenViewController: UIViewController {
         // Update board UI
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
             self.DropTokenCollection.reloadData()
+            if self.isGameFinished == false {
+                self.nextTurnReady += 1
+            } else {
+                self.ResultLabel.text = gameResult
+            }
         })
     }
     
+    // Attempt to make next move
+    @objc func moveInitiatedByPlayer(_ sender: UIButton) {
+        makeAMove(sender.tag)
+    }
+    
+    func moveInitiatedByComputer() {
+        guard let game = DropTokenService.game else { return }
+        DropTokenApi.makeAMoveByAI(game.apiMoves) {
+            returnedMoves in
+            if let moves = returnedMoves {
+                if moves.count == game.apiMoves.count + 1 && moves.last != nil {
+                    self.makeAMove(moves.last!)
+                }
+            }
+        }
+    }
+    
     func animateDrop(_ colIndex: Int) {
+        guard let game = DropTokenService.game else { return }
         for i in 0...3 {
             var pendingIndexPath : [IndexPath] = []
             // Clean up previous cell
             if i > 0 {
                 // Remove previous cell color
-                DropTokenService.board[i-1][colIndex] = 0
+                game.board[i-1][colIndex] = 0
                 let indexPath = IndexPath(row: colIndex, section: i - 1)
                 pendingIndexPath.append(indexPath)
             }
             // Fill current cell
-            if DropTokenService.board[i][colIndex] == 0 {
-                DropTokenService.board[i][colIndex] = currentPlayer
+            if game.board[i][colIndex] == 0 {
+                game.board[i][colIndex] = game.currentPlayer
                 let indexPath = IndexPath(row: colIndex, section: i)
                 pendingIndexPath.append(indexPath)
             } else {
                 return
             }
             if pendingIndexPath.count > 0 {
-                DropTokenCollection.reloadItems(at: pendingIndexPath)
+                DispatchQueue.main.async(execute: {
+                    self.DropTokenCollection.reloadItems(at: pendingIndexPath)
+                })
             }
         }
     }
@@ -159,3 +192,14 @@ extension UIView {
     }
 }
 
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tapOnViewController: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tapOnViewController.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapOnViewController)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+}

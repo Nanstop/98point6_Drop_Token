@@ -10,35 +10,29 @@ import Foundation
 import UIKit
 
 public class DropTokenService {
-    public static var board : [[Int]] = []
-    public static var tokenRotation : [[Int]] = []
-    public static var apiMoves : [Int] = []
-    public static var diagnalMap : [Int] = [3,2,1,0]
-    public static var winningCoords : [[Int]] = []
-    public enum moveResult {
+    public static var game: DropTokenGame? = nil
+    public static var players : [Player] = []
+    public enum GameMode {
+        case PvP, PvAI
+    }
+    public enum MoveResult {
         case Valid, Invalid, Win, Draw
     }
-    
-    public static func initBoard() {
-        apiMoves = []
-        winningCoords = []
-        board = Array(repeating: Array(repeating: 0, count: 4), count: 4)
-        tokenRotation = Array(repeating: Array(repeating: 0, count: 4), count: 4)
-        for i in 0...3 {
-            for j in 0...3 {
-                board[i][j] = 0
-                tokenRotation[i][j] = 0
-            }
-        }
+    enum playerType {
+        case human, computer
+    }
+    public static func initBoard(currentMode: GameMode) {
+        game = DropTokenGame.init(currentMode: currentMode)
     }
     
     public static func validateWin(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        guard let currentGame = game else { return false }
         var result = true
-        winningCoords = []
+        currentGame.winningCoords = []
         // check horizontal
         for i in 0...3 {
-            winningCoords.append([i,y])
-            if board[i][y] != currentPlayer {
+            currentGame.winningCoords.append([i,y])
+            if currentGame.board[i][y] != currentPlayer {
                 result = false
                 break
             }
@@ -47,12 +41,12 @@ public class DropTokenService {
             return result
         } else {
             result = true
-            winningCoords = []
+            currentGame.winningCoords = []
         }
         // check vertical
         for j in 0...3 {
-            winningCoords.append([x,j])
-            if board[x][j] != currentPlayer {
+            currentGame.winningCoords.append([x,j])
+            if currentGame.board[x][j] != currentPlayer {
                 result = false
                 break
             }
@@ -61,21 +55,21 @@ public class DropTokenService {
             return result
         } else {
             result = true
-            winningCoords = []
+            currentGame.winningCoords = []
         }
         // check diagnal
         if x == y {
             for i in 0...3 {
-                winningCoords.append([i,i])
-                if board[i][i] != currentPlayer {
+                currentGame.winningCoords.append([i,i])
+                if currentGame.board[i][i] != currentPlayer {
                     result = false
                     break
                 }
             }
         } else if x == 3 - y {
             for j in 0...3 {
-                winningCoords.append([j,diagnalMap[j]])
-                if board[j][diagnalMap[j]] != currentPlayer {
+                currentGame.winningCoords.append([j,currentGame.diagnalMap[j]])
+                if currentGame.board[j][currentGame.diagnalMap[j]] != currentPlayer {
                     result = false
                     break
                 }
@@ -87,7 +81,8 @@ public class DropTokenService {
     }
     
     public static func decideCellColor(_ x: Int, _ y: Int) -> UIColor {
-        let cellValue = board[x][y]
+        guard let currentGame = game else { return decideCellColorByPlayerId(0) }
+        let cellValue = currentGame.board[x][y]
         return decideCellColorByPlayerId(cellValue)
     }
     
@@ -103,7 +98,8 @@ public class DropTokenService {
     }
     
     public static func decideCellImage(_ x: Int, _ y: Int) -> UIImage? {
-        let cellValue = board[x][y]
+        guard let currentGame = game else { return nil }
+        let cellValue = currentGame.board[x][y]
         return decideCellImageByPlayerId(cellValue)
     }
     
@@ -120,23 +116,25 @@ public class DropTokenService {
         return nil
     }
     
-    public static func makeAMove(_ nextMove: Int, _ currentPlayer: Int, _ tokenRotationDegree: Int) -> moveResult {
+    public static func makeAMove(_ nextMove: Int, _ tokenRotationDegree: Int) -> MoveResult {
+        guard let currentGame = game else { return .Invalid }
         var moveMade = false
-        if board[0][nextMove] != 0 {
+        if currentGame.board[0][nextMove] != 0 {
             return .Invalid
         }
         for i in (0...3).reversed() {
             if moveMade == true {
                 break
             }
-            if board[i][nextMove] == 0 {
-                board[i][nextMove] = currentPlayer
-                tokenRotation[i][nextMove] = tokenRotationDegree
-                apiMoves.append(nextMove)
-                moveMade = true
-                if validateWin(i, nextMove, currentPlayer) {
+            if currentGame.board[i][nextMove] == 0 {
+                currentGame.board[i][nextMove] = currentGame.currentPlayer
+                currentGame.tokenRotation[i][nextMove] = tokenRotationDegree
+                currentGame.apiMoves.append(nextMove)
+                if validateWin(i, nextMove, currentGame.currentPlayer) {
                     return .Win
                 }
+                currentGame.currentPlayer = currentGame.currentPlayer == 1 ? 2 : 1
+                moveMade = true
             }
         }
         if isDraw() == true {
@@ -147,8 +145,9 @@ public class DropTokenService {
     }
     
     private static func isDraw() -> Bool {
+        guard let currentGame = game else { return false }
         for i in 0...3 {
-            if board[0][i] == 0 {
+            if currentGame.board[0][i] == 0 {
                 return false
             }
         }
@@ -156,10 +155,29 @@ public class DropTokenService {
     }
     
     public static func isColumnAvailable(_ colIndex: Int) -> Bool {
-        return board[0][colIndex] == 0
+        guard let currentGame = game else { return false }
+        return currentGame.board[0][colIndex] == 0
     }
     
     public static func shouldHighlightCell(_ x: Int, _ y: Int) -> Bool {
-        return winningCoords.contains([x,y])
+        guard let currentGame = game else { return false }
+        return currentGame.winningCoords.contains([x,y])
+    }
+    
+    public static func getWinnerString() -> String {
+        guard let currentGame = game else { return "" }
+        let winner = players[currentGame.currentPlayer - 1]
+        return winner.name + " WINS!"
+    }
+    
+    public static func isComputerNext() -> Bool? {
+        guard let currentGame = game else { return nil }
+        let currentPlayer = players[currentGame.currentPlayer - 1]
+        return currentPlayer.type == .computer
+    }
+    
+    public static func reset() {
+        guard let currentGame = game else { return }
+        game = DropTokenGame.init(currentMode: currentGame.currentMode!)
     }
 }
