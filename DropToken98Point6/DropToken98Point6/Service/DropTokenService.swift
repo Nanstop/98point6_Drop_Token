@@ -180,4 +180,14 @@ public class DropTokenService {
         guard let currentGame = game else { return }
         game = DropTokenGame.init(currentMode: currentGame.currentMode!)
     }
+    
+    public static func getPlayerImage() -> UIImage? {
+        guard let currentGame = game else { return nil }
+        return players[currentGame.currentPlayer - 1].tokenImage
+    }
+    
+    public static func getPlayerColor() -> UIColor {
+        guard let currentGame = game else { fatalError() }
+        return currentGame.currentPlayer == 1 ? UIColor.red : UIColor.blue
+    }
 }

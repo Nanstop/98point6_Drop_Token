@@ -21,7 +21,7 @@ class DropTokenViewController: UIViewController {
         }
     }
     
-    var nextTurnReady : Int = 0 {
+    var turnCounter : Int = 0 {
         didSet {
             if let isComputerNext = DropTokenService.isComputerNext() {
                 if isComputerNext == true {
@@ -30,30 +30,22 @@ class DropTokenViewController: UIViewController {
             }
         }
     }
+    var imagePicker : UIImagePickerController!
+    var selectedProfileToken : Int? = nil
     
     @IBAction func BackBtnPressed(_ sender: UIButton) {
         DropTokenService.game = nil
         self.dismiss(animated: true, completion: nil)
     }
-    var imagePicker : UIImagePickerController!
-    var selectedProfileToken : Int? = nil
+    @IBOutlet weak var TurnCountLabel: UILabel!
     
+    @IBOutlet weak var CurrentTurnTokenImage: UIImageView!
     @IBOutlet weak var GameResultView: UIView!
-    @IBOutlet weak var PlayerOneTokenBtn: UIButton!
-    @IBAction func PlayerTokenBtnPressed(_ sender: UIButton) {
-        selectedProfileToken = 1
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    @IBOutlet weak var PlayerTwoView: UIView!
-    @IBOutlet weak var PlayerTwoTokenBtn: UIButton!
-    @IBAction func PlayerTwoTokenBtnPressed(_ sender: UIButton) {
-        selectedProfileToken = 2
-        self.present(imagePicker, animated: true, completion: nil)
-    }
     @IBOutlet weak var ResultLabel: UILabel!
     @IBOutlet weak var DropTokenCollection: UICollectionView!
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
         DropTokenService.reset()
+        
         gameStart()
     }
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
@@ -68,6 +60,7 @@ class DropTokenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUIComponents()
+        GameResultView.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,11 +69,8 @@ class DropTokenViewController: UIViewController {
     }
     
     func setupUIComponents() {
-        PlayerOneTokenBtn.backgroundColor = UIColor.red
-        PlayerOneTokenBtn.layer.cornerRadius = 50
-        
-        PlayerTwoTokenBtn.backgroundColor = UIColor.blue
-        PlayerTwoTokenBtn.layer.cornerRadius = 50
+        CurrentTurnTokenImage.backgroundColor = UIColor.red
+        CurrentTurnTokenImage.layer.cornerRadius = 50
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -97,10 +87,18 @@ class DropTokenViewController: UIViewController {
     
     func gameStart() {
         isGameFinished = false
+        turnCounter = 1
         DispatchQueue.main.async(execute: {
+            self.TurnCountLabel.text = String(self.turnCounter)
             self.DropTokenCollection.reloadData()
+            if let profileImage = DropTokenService.getPlayerImage() {
+                self.CurrentTurnTokenImage.image = profileImage
+                self.CurrentTurnTokenImage.backgroundColor = UIColor.clear
+            } else {
+                self.CurrentTurnTokenImage.image = nil
+                self.CurrentTurnTokenImage.backgroundColor = DropTokenService.getPlayerColor()
+            }
         })
-        nextTurnReady += 1
     }
     
     func makeAMove(_ nextMove: Int) {
@@ -123,7 +121,15 @@ class DropTokenViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
             self.DropTokenCollection.reloadData()
             if self.isGameFinished == false {
-                self.nextTurnReady += 1
+                self.turnCounter += 1
+                self.TurnCountLabel.text = String(self.turnCounter)
+                if let profileImage = DropTokenService.getPlayerImage() {
+                    self.CurrentTurnTokenImage.image = profileImage
+                    self.CurrentTurnTokenImage.backgroundColor = UIColor.clear
+                } else {
+                    self.CurrentTurnTokenImage.image = nil
+                    self.CurrentTurnTokenImage.backgroundColor = DropTokenService.getPlayerColor()
+                }
             } else {
                 self.ResultLabel.text = gameResult
             }

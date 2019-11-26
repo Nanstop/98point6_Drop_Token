@@ -18,15 +18,15 @@ extension DropTokenViewController: UIImagePickerControllerDelegate, UINavigation
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
             let imageData = pickedImage.pngData()
             DispatchQueue.main.async {
-                if self.selectedProfileToken == 1 {
-                    self.PlayerOneTokenBtn.setImage(pickedImage, for: .normal)
-                    self.PlayerOneTokenBtn.layer.cornerRadius = 25
-                    UserDefaults.standard.set(imageData, forKey: "playerOneProfile")
-                } else {
-                    self.PlayerTwoTokenBtn.setImage(pickedImage, for: .normal)
-                    self.PlayerTwoTokenBtn.layer.cornerRadius = 25
-                    UserDefaults.standard.set(imageData, forKey: "playerTwoProfile")
-                }
+//                if self.selectedProfileToken == 1 {
+//                    self.PlayerOneTokenBtn.setImage(pickedImage, for: .normal)
+//                    self.PlayerOneTokenBtn.layer.cornerRadius = 25
+//                    UserDefaults.standard.set(imageData, forKey: "playerOneProfile")
+//                } else {
+//                    self.PlayerTwoTokenBtn.setImage(pickedImage, for: .normal)
+//                    self.PlayerTwoTokenBtn.layer.cornerRadius = 25
+//                    UserDefaults.standard.set(imageData, forKey: "playerTwoProfile")
+//                }
             }
         }
         self.dismiss(animated: true)
