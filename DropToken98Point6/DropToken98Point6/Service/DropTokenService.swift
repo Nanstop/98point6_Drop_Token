@@ -104,14 +104,11 @@ public class DropTokenService {
     }
     
     public static func decideCellImageByPlayerId(_ id: Int) -> UIImage? {
-        if id == 1 {
-            if let imageData = UserDefaults.standard.data(forKey: "playerOneProfile") {
-                return UIImage(data: imageData)
-            }
-        } else if id == 2 {
-            if let imageData = UserDefaults.standard.data(forKey: "playerTwoProfile") {
-                return UIImage(data: imageData)
-            }
+        if id == 0 || players.count == 0 || id > players.count {
+            return nil
+        }
+        if let image = players[id - 1].tokenImage {
+            return image
         }
         return nil
     }

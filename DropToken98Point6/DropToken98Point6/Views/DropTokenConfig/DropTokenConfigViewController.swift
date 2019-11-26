@@ -11,6 +11,7 @@ import UIKit
 class DropTokenConfigViewController: UIViewController {
     var imagePicker : UIImagePickerController!
     var selectedCustomToken : Int = 0
+    var playerCustomTokenImages : [UIImage?] = [nil, nil]
     @IBOutlet weak var PlayerOneView: UIView!
     @IBOutlet weak var PlayerTwoView: UIView!
     @IBOutlet weak var PlayerOneNameTextField: UITextField!
@@ -27,9 +28,10 @@ class DropTokenConfigViewController: UIViewController {
     @IBOutlet weak var PlayerOneCustomTokenBtn: UIButton!
     @IBAction func PlayerOneCustomTokenBtnPressed(_ sender: UIButton) {
         selectedCustomToken = 1
-        sender.isSelected = true
-        PlayerOneClassicTokenBtn.isSelected = false
-        self.present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true) {
+            sender.isSelected = true
+            self.PlayerOneClassicTokenBtn.isSelected = false
+        }
     }
     @IBOutlet weak var PlayerTwoClassicTokenBtn: UIButton!
     @IBAction func PlayerTwoClassicTokenBtnPressed(_ sender: UIButton) {
@@ -40,11 +42,11 @@ class DropTokenConfigViewController: UIViewController {
     @IBOutlet weak var PlayerTwoCustomTokenBtn: UIButton!
     @IBAction func PlayerTwoCustomTokenBtnPressed(_ sender: UIButton) {
         selectedCustomToken = 2
-        sender.isSelected = true
-        PlayerTwoClassicTokenBtn.isSelected = false
-        self.present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true) {
+            sender.isSelected = true
+            self.PlayerTwoClassicTokenBtn.isSelected = false
+        }
     }
-    
     
     @IBOutlet weak var StartGameBtn: UIButton!
     @IBAction func StartGameBtnPressed(_ sender: UIButton) {
@@ -55,9 +57,13 @@ class DropTokenConfigViewController: UIViewController {
         let playerTwoRole = PlayerTwoRoleSwitch.selectedSegmentIndex == 1 ? DropTokenService.playerType.human : .computer
         let playerOne = Player.init(id: 1, name: playerOneName, type: playerOneRole)
         let playerTwo = Player.init(id: 2, name: playerTwoName, type: playerTwoRole)
+        if PlayerOneCustomTokenBtn.isSelected == true {
+            playerOne.tokenImage = playerCustomTokenImages[0]
+        }
+        if PlayerTwoCustomTokenBtn.isSelected == true {
+            playerTwo.tokenImage = playerCustomTokenImages[1]
+        }
         let currentMode = playerOneRole == .computer || playerTwoRole == .computer ? DropTokenService.GameMode.PvAI : .PvP
-        playerOne.tokenImage = PlayerOneCustomTokenBtn.currentImage
-        playerTwo.tokenImage = PlayerTwoCustomTokenBtn.currentImage
         DropTokenService.initBoard(currentMode: currentMode)
         DropTokenService.players = [playerOne, playerTwo]
         self.performSegue(withIdentifier: "goToDropTokenViewSegue", sender: self)

@@ -16,13 +16,7 @@ extension DropTokenConfigViewController: UIImagePickerControllerDelegate, UINavi
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            DispatchQueue.main.async {
-                if self.selectedCustomToken == 1 {
-                    self.PlayerOneCustomTokenBtn.setImage(pickedImage, for: .normal)
-                } else {
-                    self.PlayerTwoCustomTokenBtn.setImage(pickedImage, for: .normal)
-                }
-            }
+            playerCustomTokenImages[self.selectedCustomToken - 1] = pickedImage
         }
         self.dismiss(animated: true)
     }
