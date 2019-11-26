@@ -30,8 +30,6 @@ class DropTokenViewController: UIViewController {
             }
         }
     }
-    var imagePicker : UIImagePickerController!
-    var selectedProfileToken : Int? = nil
     
     @IBAction func BackBtnPressed(_ sender: UIButton) {
         DropTokenService.game = nil
@@ -71,11 +69,6 @@ class DropTokenViewController: UIViewController {
     func setupUIComponents() {
         CurrentTurnTokenImage.backgroundColor = UIColor.red
         CurrentTurnTokenImage.layer.cornerRadius = 50
-        
-        imagePicker = UIImagePickerController()
-        imagePicker.allowsEditing = true
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.delegate = self
         
         DropTokenCollection.backgroundColor = UIColor.lightGray
         DropTokenCollection.layer.cornerRadius = 14

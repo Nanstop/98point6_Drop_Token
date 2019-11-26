@@ -9,14 +9,43 @@
 import UIKit
 
 class DropTokenConfigViewController: UIViewController {
-
-
+    var imagePicker : UIImagePickerController!
+    var selectedCustomToken : Int = 0
+    @IBOutlet weak var PlayerOneView: UIView!
+    @IBOutlet weak var PlayerTwoView: UIView!
     @IBOutlet weak var PlayerOneNameTextField: UITextField!
     
     @IBOutlet weak var PlayerTwoNameTextField: UITextField!
     
     @IBOutlet weak var PlayerOneRoleSwitch: UISegmentedControl!
     @IBOutlet weak var PlayerTwoRoleSwitch: UISegmentedControl!
+    @IBOutlet weak var PlayerOneClassicTokenBtn: UIButton!
+    @IBAction func PlayerOneClassicTokenBtnPressed(_ sender: UIButton) {
+        sender.isSelected = true
+        PlayerOneCustomTokenBtn.isSelected = false
+    }
+    @IBOutlet weak var PlayerOneCustomTokenBtn: UIButton!
+    @IBAction func PlayerOneCustomTokenBtnPressed(_ sender: UIButton) {
+        selectedCustomToken = 1
+        sender.isSelected = true
+        PlayerOneClassicTokenBtn.isSelected = false
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    @IBOutlet weak var PlayerTwoClassicTokenBtn: UIButton!
+    @IBAction func PlayerTwoClassicTokenBtnPressed(_ sender: UIButton) {
+        sender.isSelected = true
+        PlayerTwoCustomTokenBtn.isSelected = false
+    }
+    
+    @IBOutlet weak var PlayerTwoCustomTokenBtn: UIButton!
+    @IBAction func PlayerTwoCustomTokenBtnPressed(_ sender: UIButton) {
+        selectedCustomToken = 2
+        sender.isSelected = true
+        PlayerTwoClassicTokenBtn.isSelected = false
+        self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    
     @IBOutlet weak var StartGameBtn: UIButton!
     @IBAction func StartGameBtnPressed(_ sender: UIButton) {
         // Create Game
@@ -27,17 +56,46 @@ class DropTokenConfigViewController: UIViewController {
         let playerOne = Player.init(id: 1, name: playerOneName, type: playerOneRole)
         let playerTwo = Player.init(id: 2, name: playerTwoName, type: playerTwoRole)
         let currentMode = playerOneRole == .computer || playerTwoRole == .computer ? DropTokenService.GameMode.PvAI : .PvP
+        playerOne.tokenImage = PlayerOneCustomTokenBtn.currentImage
+        playerTwo.tokenImage = PlayerTwoCustomTokenBtn.currentImage
         DropTokenService.initBoard(currentMode: currentMode)
         DropTokenService.players = [playerOne, playerTwo]
         self.performSegue(withIdentifier: "goToDropTokenViewSegue", sender: self)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
         updateUIComponents()
         hideKeyboardWhenTappedAround()
     }
     
     func updateUIComponents() {
+        PlayerOneView.layer.cornerRadius = 14
+        PlayerOneView.layer.borderWidth = 1
+        PlayerOneView.layer.borderColor = UIColor.gray.cgColor
+        
+        PlayerTwoView.layer.cornerRadius = 14
+        PlayerTwoView.layer.borderWidth = 1
+        PlayerTwoView.layer.borderColor = UIColor.gray.cgColor
+        
+        PlayerOneClassicTokenBtn.backgroundColor = UIColor.red
+        PlayerOneClassicTokenBtn.layer.cornerRadius = 32.5
+        
+        PlayerOneCustomTokenBtn.layer.borderColor = UIColor.red.cgColor
+        PlayerOneCustomTokenBtn.layer.borderWidth = 1
+        PlayerOneCustomTokenBtn.layer.cornerRadius = 32.5
+        
+        PlayerTwoClassicTokenBtn.backgroundColor = UIColor.blue
+        PlayerTwoClassicTokenBtn.layer.cornerRadius = 32.5
+        
+        PlayerTwoCustomTokenBtn.layer.borderColor = UIColor.blue.cgColor
+        PlayerTwoCustomTokenBtn.layer.borderWidth = 1
+        PlayerTwoCustomTokenBtn.layer.cornerRadius = 32.5
+        
+        StartGameBtn.layer.cornerRadius = 24
         
     }
 }

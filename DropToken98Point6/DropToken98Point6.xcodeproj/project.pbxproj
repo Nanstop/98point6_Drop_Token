@@ -170,7 +170,6 @@
 			isa = PBXGroup;
 			children = (
 				DE7FAB0A2389EA99008DF72C /* DropTokenCollectionExtension.swift */,
-				DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -197,6 +196,7 @@
 		DE7FAB17238B96FD008DF72C /* DropTokenConfig */ = {
 			isa = PBXGroup;
 			children = (
+				DEE01B77238D915300EEC64A /* Extensions */,
 				DE7FAB18238B972B008DF72C /* DropTokenConfigViewController.swift */,
 			);
 			path = DropTokenConfig;
@@ -209,6 +209,14 @@
 				DE7FAB1D238BAD47008DF72C /* DropTokenGame.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		DEE01B77238D915300EEC64A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DE7FAB12238A6EB7008DF72C /* DropTokenImagePickerExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
