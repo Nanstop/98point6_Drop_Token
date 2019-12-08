@@ -13,7 +13,6 @@ class DropTokenViewController: UIViewController {
         didSet {
             var delay = 0.0
             if isGameFinished == true {
-                print(DropTokenService.game!.winningCoords)
                 delay = 0.5
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {

@@ -26,6 +26,11 @@ public class DropTokenService {
     }
     
     public static func validateWin(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        
+        return validateHorizontal(x, y, currentPlayer) ? true : validateVertical(x, y, currentPlayer) ? true : validateDiagnal(x, y, currentPlayer)
+    }
+    
+    private static func validateHorizontal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
         guard let currentGame = game else { return false }
         var result = true
         currentGame.winningCoords = []
@@ -37,12 +42,13 @@ public class DropTokenService {
                 break
             }
         }
-        if result == true {
-            return result
-        } else {
-            result = true
-            currentGame.winningCoords = []
-        }
+        return result
+    }
+    
+    private static func validateVertical(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        guard let currentGame = game else { return false }
+        var result = true
+        currentGame.winningCoords = []
         // check vertical
         for j in 0...3 {
             currentGame.winningCoords.append([x,j])
@@ -51,13 +57,14 @@ public class DropTokenService {
                 break
             }
         }
-        if result == true {
-            return result
-        } else {
-            result = true
-            currentGame.winningCoords = []
-        }
-        // check diagnal
+        return result
+    }
+    
+    private static func validateDiagnal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        guard let currentGame = game else { return false }
+        var result = true
+        currentGame.winningCoords = []
+        // validate diagnal
         if x == y {
             for i in 0...3 {
                 currentGame.winningCoords.append([i,i])

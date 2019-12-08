@@ -53,8 +53,8 @@ class DropTokenConfigViewController: UIViewController {
         // Create Game
         guard let playerOneName = PlayerOneNameTextField.text else { return }
         guard let playerTwoName = PlayerTwoNameTextField.text else { return }
-        let playerOneRole = PlayerOneRoleSwitch.selectedSegmentIndex == 1 ? DropTokenService.playerType.human : .computer
-        let playerTwoRole = PlayerTwoRoleSwitch.selectedSegmentIndex == 1 ? DropTokenService.playerType.human : .computer
+        let playerOneRole = PlayerOneRoleSwitch.selectedSegmentIndex == 0 ? DropTokenService.playerType.human : .computer
+        let playerTwoRole = PlayerTwoRoleSwitch.selectedSegmentIndex == 0 ? DropTokenService.playerType.human : .computer
         let playerOne = Player.init(id: 1, name: playerOneName, type: playerOneRole)
         let playerTwo = Player.init(id: 2, name: playerTwoName, type: playerTwoRole)
         if PlayerOneCustomTokenBtn.isSelected == true {

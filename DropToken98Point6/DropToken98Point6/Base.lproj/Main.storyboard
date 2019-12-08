@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lod-ed-8BQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -239,13 +239,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="98.6 Drop Token" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FDa-zS-ZKg">
-                                <rect key="frame" x="16" y="108" width="382" height="32"/>
+                                <rect key="frame" x="16" y="92" width="382" height="32"/>
                                 <fontDescription key="fontDescription" name="GeezaPro-Bold" family="Geeza Pro" pointSize="26"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEr-Au-rbj">
-                                <rect key="frame" x="16" y="176" width="382" height="646"/>
+                                <rect key="frame" x="16" y="160" width="382" height="662"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y36-FG-TeO" userLabel="Player One View">
                                         <rect key="frame" x="0.0" y="0.0" width="382" height="210"/>
@@ -350,6 +350,7 @@
                                                             <segment title="Player"/>
                                                             <segment title="AI"/>
                                                         </segments>
+                                                        <color key="selectedSegmentTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -552,6 +553,8 @@
                                                             <segment title="Player"/>
                                                             <segment title="AI"/>
                                                         </segments>
+                                                        <color key="tintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="selectedSegmentTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </segmentedControl>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -650,7 +653,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n6T-PR-r58">
-                                        <rect key="frame" x="50" y="598" width="282" height="48"/>
+                                        <rect key="frame" x="50" y="614" width="282" height="48"/>
                                         <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="48" id="daR-3L-tzb"/>
@@ -681,7 +684,7 @@
                         <constraints>
                             <constraint firstItem="FDa-zS-ZKg" firstAttribute="leading" secondItem="9Bs-jA-lhX" secondAttribute="leading" constant="16" id="1p2-IW-8TW"/>
                             <constraint firstItem="9Bs-jA-lhX" firstAttribute="trailing" secondItem="FDa-zS-ZKg" secondAttribute="trailing" constant="16" id="AIY-eO-hL0"/>
-                            <constraint firstItem="FDa-zS-ZKg" firstAttribute="top" secondItem="9Bs-jA-lhX" secondAttribute="top" constant="64" id="Buj-e5-R9c"/>
+                            <constraint firstItem="FDa-zS-ZKg" firstAttribute="top" secondItem="9Bs-jA-lhX" secondAttribute="top" constant="48" id="Buj-e5-R9c"/>
                             <constraint firstItem="qEr-Au-rbj" firstAttribute="top" secondItem="FDa-zS-ZKg" secondAttribute="bottom" constant="36" id="NfZ-4Q-1fI"/>
                             <constraint firstItem="9Bs-jA-lhX" firstAttribute="trailing" secondItem="qEr-Au-rbj" secondAttribute="trailing" constant="16" id="VCs-wT-YK8"/>
                             <constraint firstItem="qEr-Au-rbj" firstAttribute="leading" secondItem="9Bs-jA-lhX" secondAttribute="leading" constant="16" id="ohS-E6-z5b"/>
