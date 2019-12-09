@@ -11,17 +11,27 @@ import UIKit
 
 extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 5
+        if let game = DropTokenService.game {
+            return game.size + 1
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        if let game = DropTokenService.game {
+            return game.size
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.section == 4 {
+        if indexPath.section == collectionView.numberOfSections - 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenBtnCollectionCell", for: indexPath) as! DropTokenCollectionViewBtnCell
+            print(cell.frame.size.width)
+            let cellSide = cell.frame.size.width
+            cell.InsertTokenBtn.frame = CGRect.init(x: 0, y: 0, width: cellSide - 10, height: cellSide - 10)
             cell.InsertTokenBtn.tag = indexPath.item
+            cell.InsertTokenBtn.clipsToBounds = true
             cell.InsertTokenBtn.addTarget(self, action: #selector(moveInitiatedByPlayer), for: .touchUpInside)
             cell.InsertTokenBtn.layer.borderWidth = 1
             let isComputerNext = DropTokenService.isComputerNext()
@@ -32,6 +42,7 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.InsertTokenBtn.isEnabled = DropTokenService.isColumnAvailable(indexPath.item)
                 cell.InsertTokenBtn.layer.borderColor = UIColor.blue.cgColor
             }
+            cell.self.sizeToFit()
             cell.backgroundColor = UIColor.white
             return cell
         } else {
@@ -60,15 +71,17 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.tokenImage.layer.borderColor = UIColor.white.cgColor
                 cell.tokenImage.layer.borderWidth = 0
             }
-            cell.tokenImage.layer.cornerRadius = 30
+            cell.tokenImage.layer.cornerRadius = (cell.frame.size.width - 20) / 2
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if indexPath.section == 4 {
-            return CGSize(width: 90, height: 90)
+        let totalWidth = Int(collectionView.frame.size.width)
+        let cellSide = totalWidth / (collectionView.numberOfSections - 1)
+        if indexPath.section == collectionView.numberOfSections - 1 {
+            return CGSize(width: cellSide, height: cellSide)
         }
-        return CGSize(width: 90, height: 90)
+        return CGSize(width: cellSide, height: cellSide)
     }
 }

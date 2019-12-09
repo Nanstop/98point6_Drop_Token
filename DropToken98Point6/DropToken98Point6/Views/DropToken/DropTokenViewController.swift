@@ -43,7 +43,6 @@ class DropTokenViewController: UIViewController {
     @IBOutlet weak var DropTokenCollection: UICollectionView!
     @IBAction func ResetBtnPressed(_ sender: UIButton) {
         DropTokenService.reset()
-        
         gameStart()
     }
     @IBAction func ShareBtnPressed(_ sender: UIButton) {
@@ -150,12 +149,12 @@ class DropTokenViewController: UIViewController {
         guard let game = DropTokenService.game else { return }
         let previousPlayer = game.currentPlayer == 1 ? 2 : 1
         DispatchQueue.main.async(execute: {
-            for i in 0...3 {
+            for i in 0 ..< game.size {
                 var pendingIndexPath : [IndexPath] = []
                 // Clean up previous cell
                 if i > 0 {
                     // Remove previous cell color
-                    game.board[i-1][colIndex] = 0
+                    game.board[i - 1][colIndex] = 0
                     let indexPath = IndexPath(row: colIndex, section: i - 1)
                     pendingIndexPath.append(indexPath)
                 }

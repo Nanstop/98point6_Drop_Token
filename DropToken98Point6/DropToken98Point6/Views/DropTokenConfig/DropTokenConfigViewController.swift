@@ -49,6 +49,19 @@ class DropTokenConfigViewController: UIViewController {
     }
     
     @IBOutlet weak var StartGameBtn: UIButton!
+    @IBAction func BoardSizeSliderValueChanged(_ sender: UISlider) {
+        let value = Int(sender.value)
+        BoardSizeSliderValue.text = String(value) + " x " + String(value)
+        if value > 5 && value < 8 {
+            BoardSizeSliderValue.textColor = UIColor.orange
+        } else if value >= 8 {
+            BoardSizeSliderValue.textColor = UIColor.red
+        } else {
+            BoardSizeSliderValue.textColor = UIColor.green
+        }
+    }
+    @IBOutlet weak var BoardSizeSlider: UISlider!
+    @IBOutlet weak var BoardSizeSliderValue: UILabel!
     @IBAction func StartGameBtnPressed(_ sender: UIButton) {
         // Create Game
         guard let playerOneName = PlayerOneNameTextField.text else { return }
@@ -64,7 +77,8 @@ class DropTokenConfigViewController: UIViewController {
             playerTwo.tokenImage = playerCustomTokenImages[1]
         }
         let currentMode = playerOneRole == .computer || playerTwoRole == .computer ? DropTokenService.GameMode.PvAI : .PvP
-        DropTokenService.initBoard(currentMode: currentMode)
+        let boardSize = Int(BoardSizeSlider.value)
+        DropTokenService.initBoard(currentMode: currentMode, size: boardSize)
         DropTokenService.players = [playerOne, playerTwo]
         self.performSegue(withIdentifier: "goToDropTokenViewSegue", sender: self)
     }

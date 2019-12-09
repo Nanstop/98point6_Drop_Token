@@ -21,8 +21,8 @@ public class DropTokenService {
     enum playerType {
         case human, computer
     }
-    public static func initBoard(currentMode: GameMode) {
-        game = DropTokenGame.init(currentMode: currentMode)
+    public static func initBoard(currentMode: GameMode, size: Int) {
+        game = DropTokenGame.init(currentMode: currentMode, size: size)
     }
     
     public static func validateWin(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
@@ -32,59 +32,120 @@ public class DropTokenService {
     
     private static func validateHorizontal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
         guard let currentGame = game else { return false }
-        var result = true
         currentGame.winningCoords = []
-        // check horizontal
-        for i in 0...3 {
-            currentGame.winningCoords.append([i,y])
+        
+        // check left and right from given coord to see if there are 4
+        for i in (0 ..< x).reversed() {
             if currentGame.board[i][y] != currentPlayer {
-                result = false
                 break
+            } else {
+                currentGame.winningCoords.append([i,y])
             }
         }
-        return result
+        if currentGame.winningCoords.count >= 3 {
+            return true
+        }
+        for i in x ..< currentGame.size {
+            if currentGame.board[i][y] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([i,y])
+            }
+        }
+        return currentGame.winningCoords.count >= 4
     }
     
     private static func validateVertical(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
         guard let currentGame = game else { return false }
-        var result = true
         currentGame.winningCoords = []
-        // check vertical
-        for j in 0...3 {
-            currentGame.winningCoords.append([x,j])
+        
+        // check top and down from given coord to see if there are 4
+        for j in (0 ..< y).reversed() {
             if currentGame.board[x][j] != currentPlayer {
-                result = false
                 break
+            } else {
+                currentGame.winningCoords.append([x,j])
             }
         }
-        return result
+        if currentGame.winningCoords.count >= 3 {
+            return true
+        }
+        for j in y ..< currentGame.size {
+            if currentGame.board[x][j] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([x,j])
+            }
+        }
+        return currentGame.winningCoords.count >= 4
     }
     
     private static func validateDiagnal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        return validateLeftDiagnal(x, y, currentPlayer) ? true : validateRightDiagnal(x, y, currentPlayer)
+    }
+    
+    private static func validateLeftDiagnal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
         guard let currentGame = game else { return false }
-        var result = true
         currentGame.winningCoords = []
-        // validate diagnal
-        if x == y {
-            for i in 0...3 {
-                currentGame.winningCoords.append([i,i])
-                if currentGame.board[i][i] != currentPlayer {
-                    result = false
-                    break
-                }
+        // validate left diagnal by checking top-left and bottom-right
+        var i = x, j = y;
+        while i >= 0 && i < currentGame.size && j >= 0 && j < currentGame.size {
+            if currentGame.board[i][j] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([i,j])
             }
-        } else if x == 3 - y {
-            for j in 0...3 {
-                currentGame.winningCoords.append([j,currentGame.diagnalMap[j]])
-                if currentGame.board[j][currentGame.diagnalMap[j]] != currentPlayer {
-                    result = false
-                    break
-                }
-            }
-        } else {
-            result = false
+            i -= 1
+            j -= 1
         }
-        return result
+        if currentGame.winningCoords.count >= 4 {
+            return true
+        }
+        
+        i = x + 1
+        j = y + 1
+        while i >= 0 && i < currentGame.size && j >= 0 && j < currentGame.size {
+            if currentGame.board[i][j] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([i,j])
+            }
+            i += 1
+            j += 1
+        }
+        return currentGame.winningCoords.count >= 4
+    }
+    
+    private static func validateRightDiagnal(_ x: Int, _ y: Int, _ currentPlayer: Int) -> Bool {
+        guard let currentGame = game else { return false }
+        currentGame.winningCoords = []
+        // validate right diagnal by checking top-right and bottom-left
+        var i = x, j = y;
+        while i >= 0 && i < currentGame.size && j >= 0 && j < currentGame.size {
+            if currentGame.board[i][j] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([i,j])
+            }
+            i += 1
+            j -= 1
+        }
+        if currentGame.winningCoords.count >= 4 {
+            return true
+        }
+        
+        i = x - 1
+        j = y + 1
+        while i >= 0 && i < currentGame.size && j >= 0 && j < currentGame.size {
+            if currentGame.board[i][j] != currentPlayer {
+                break
+            } else {
+                currentGame.winningCoords.append([i,j])
+            }
+            i -= 1
+            j += 1
+        }
+        return currentGame.winningCoords.count >= 4
     }
     
     public static func decideCellColor(_ x: Int, _ y: Int) -> UIColor {
@@ -126,7 +187,7 @@ public class DropTokenService {
         if currentGame.board[0][nextMove] != 0 {
             return .Invalid
         }
-        for i in (0...3).reversed() {
+        for i in (0 ..< currentGame.size).reversed() {
             if moveMade == true {
                 break
             }
@@ -150,7 +211,7 @@ public class DropTokenService {
     
     private static func isDraw() -> Bool {
         guard let currentGame = game else { return false }
-        for i in 0...3 {
+        for i in 0 ..< currentGame.size {
             if currentGame.board[0][i] == 0 {
                 return false
             }
@@ -182,7 +243,7 @@ public class DropTokenService {
     
     public static func reset() {
         guard let currentGame = game else { return }
-        game = DropTokenGame.init(currentMode: currentGame.currentMode!)
+        game = DropTokenGame.init(currentMode: currentGame.currentMode!, size: currentGame.size)
     }
     
     public static func getPlayerImage() -> UIImage? {

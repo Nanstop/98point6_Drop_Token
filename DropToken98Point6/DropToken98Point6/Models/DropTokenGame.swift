@@ -11,23 +11,25 @@ public class DropTokenGame {
     var board : [[Int]]
     var tokenRotation : [[Int]]
     var apiMoves : [Int]
-    var diagnalMap : [Int] = [3,2,1,0]
+    var diagnalMap : [Int] = [4,3,2,1,0]
     var winningCoords : [[Int]] = []
     var currentMode : DropTokenService.GameMode?
     var currentPlayer : Int
+    var size: Int
     
-    init(currentMode: DropTokenService.GameMode) {
+    init(currentMode: DropTokenService.GameMode, size: Int) {
         self.apiMoves = []
         self.winningCoords = []
-        self.board = Array(repeating: Array(repeating: 0, count: 4), count: 4)
-        self.tokenRotation = Array(repeating: Array(repeating: 0, count: 4), count: 4)
-        for i in 0...3 {
-            for j in 0...3 {
+        self.board = Array(repeating: Array(repeating: 0, count: size), count: size)
+        self.tokenRotation = Array(repeating: Array(repeating: 0, count: size), count: size)
+        for i in 0 ..< size {
+            for j in 0 ..< size {
                 board[i][j] = 0
                 tokenRotation[i][j] = 0
             }
         }
         self.currentMode = currentMode
         self.currentPlayer = 1
+        self.size = size
     }
 }
