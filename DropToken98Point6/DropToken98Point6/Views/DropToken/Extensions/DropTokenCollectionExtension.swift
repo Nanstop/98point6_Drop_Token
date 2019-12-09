@@ -27,13 +27,11 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == collectionView.numberOfSections - 1 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenBtnCollectionCell", for: indexPath) as! DropTokenCollectionViewBtnCell
-            print(cell.frame.size.width)
-            let cellSide = cell.frame.size.width
-            cell.InsertTokenBtn.frame = CGRect.init(x: 0, y: 0, width: cellSide - 10, height: cellSide - 10)
+            cell.layer.borderColor = UIColor.blue.cgColor
+            cell.layer.borderWidth = 1
             cell.InsertTokenBtn.tag = indexPath.item
             cell.InsertTokenBtn.clipsToBounds = true
             cell.InsertTokenBtn.addTarget(self, action: #selector(moveInitiatedByPlayer), for: .touchUpInside)
-            cell.InsertTokenBtn.layer.borderWidth = 1
             let isComputerNext = DropTokenService.isComputerNext()
             if isGameFinished == true || (isComputerNext != nil && isComputerNext == true) {
                 cell.InsertTokenBtn.isEnabled = false
@@ -42,7 +40,6 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
                 cell.InsertTokenBtn.isEnabled = DropTokenService.isColumnAvailable(indexPath.item)
                 cell.InsertTokenBtn.layer.borderColor = UIColor.blue.cgColor
             }
-            cell.self.sizeToFit()
             cell.backgroundColor = UIColor.white
             return cell
         } else {

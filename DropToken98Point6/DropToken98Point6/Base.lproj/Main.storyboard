@@ -81,11 +81,11 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5w2-ZM-Wnl">
-                                <rect key="frame" x="27" y="192" width="360" height="450"/>
+                                <rect key="frame" x="27" y="192" width="360" height="470"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="360" id="2XI-GF-bM9"/>
-                                    <constraint firstAttribute="height" constant="450" id="beo-pE-Xyr"/>
+                                    <constraint firstAttribute="height" constant="470" id="beo-pE-Xyr"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="M5f-Rh-uhC">
                                     <size key="itemSize" width="90" height="90"/>
@@ -125,10 +125,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yCN-y1-cDU">
-                                                    <rect key="frame" x="34" y="34" width="22" height="22"/>
+                                                    <rect key="frame" x="22.5" y="22.5" width="45" height="45"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="22" id="cFh-UE-zqj"/>
-                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="ifN-Kq-qLm"/>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="cFh-UE-zqj"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="ifN-Kq-qLm"/>
                                                     </constraints>
                                                     <color key="tintColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" image="shift.fill" catalog="system"/>
@@ -662,7 +662,7 @@
                                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="4" maxValue="9" translatesAutoresizingMaskIntoConstraints="NO" id="hZT-aN-Ybw">
+                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="4" minValue="4" maxValue="8" translatesAutoresizingMaskIntoConstraints="NO" id="hZT-aN-Ybw">
                                                 <rect key="frame" x="122" y="0.0" width="118" height="31"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="114" id="MUS-eF-NXj"/>
