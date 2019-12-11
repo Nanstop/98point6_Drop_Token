@@ -203,6 +203,7 @@ public class DropTokenService {
             }
         }
         if isDraw() == true {
+            currentGame.winningCoords = []
             return .Draw
         } else {
             return .Valid

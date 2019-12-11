@@ -11,7 +11,6 @@ public class DropTokenGame {
     var board : [[Int]]
     var tokenRotation : [[Int]]
     var apiMoves : [Int]
-    var diagnalMap : [Int] = [4,3,2,1,0]
     var winningCoords : [[Int]] = []
     var currentMode : DropTokenService.GameMode?
     var currentPlayer : Int
