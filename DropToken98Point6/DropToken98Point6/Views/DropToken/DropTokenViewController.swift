@@ -13,7 +13,9 @@ class DropTokenViewController: UIViewController {
         didSet {
             var delay = 0.0
             if isGameFinished == true {
-                delay = 0.5
+                if let game = DropTokenService.game {
+                    delay = 0.1 * Double(game.size)
+                }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
                 self.GameResultView.isHidden = !self.isGameFinished
@@ -109,23 +111,26 @@ class DropTokenViewController: UIViewController {
         case .Invalid:
             print("Invalid move, please try again")
         }
-        // Update board UI
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4, execute: {
-            self.DropTokenCollection.reloadData()
-            if self.isGameFinished == false {
-                self.turnCounter += 1
-                self.TurnCountLabel.text = String(self.turnCounter)
-                if let profileImage = DropTokenService.getPlayerImage() {
-                    self.CurrentTurnTokenImage.image = profileImage
-                    self.CurrentTurnTokenImage.backgroundColor = UIColor.clear
+        if let game = DropTokenService.game {
+            let delay = 0.1 * Double(game.size)
+            // Update board UI
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                self.DropTokenCollection.reloadData()
+                if self.isGameFinished == false {
+                    self.turnCounter += 1
+                    self.TurnCountLabel.text = String(self.turnCounter)
+                    if let profileImage = DropTokenService.getPlayerImage() {
+                        self.CurrentTurnTokenImage.image = profileImage
+                        self.CurrentTurnTokenImage.backgroundColor = UIColor.clear
+                    } else {
+                        self.CurrentTurnTokenImage.image = nil
+                        self.CurrentTurnTokenImage.backgroundColor = DropTokenService.getPlayerColor()
+                    }
                 } else {
-                    self.CurrentTurnTokenImage.image = nil
-                    self.CurrentTurnTokenImage.backgroundColor = DropTokenService.getPlayerColor()
+                    self.ResultLabel.text = gameResult
                 }
-            } else {
-                self.ResultLabel.text = gameResult
-            }
-        })
+            })
+        }
     }
     
     // Attempt to make next move
@@ -200,5 +205,15 @@ extension UIViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+}
+
+extension UIImage {
+    func resized(toWidth width: CGFloat, height: CGFloat) -> UIImage? {
+        let canvasSize = CGSize(width: width, height: height)
+        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+        defer { UIGraphicsEndImageContext() }
+        draw(in: CGRect(origin: .zero, size: canvasSize))
+        return UIGraphicsGetImageFromCurrentImageContext()
     }
 }

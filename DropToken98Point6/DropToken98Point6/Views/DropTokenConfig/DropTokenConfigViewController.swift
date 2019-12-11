@@ -13,7 +13,13 @@ class DropTokenConfigViewController: UIViewController {
     var selectedCustomToken : Int = 0
     var playerCustomTokenImages : [UIImage?] = [nil, nil]
     @IBOutlet weak var PlayerOneView: UIView!
+    @IBAction func PlayerOneRoleChanged(_ sender: UISegmentedControl) {
+        updateBoardSizeSlider()
+    }
     @IBOutlet weak var PlayerTwoView: UIView!
+    @IBAction func PlayerTwoRoleChanged(_ sender: UISegmentedControl) {
+        updateBoardSizeSlider()
+    }
     @IBOutlet weak var PlayerOneNameTextField: UITextField!
     
     @IBOutlet weak var PlayerTwoNameTextField: UITextField!
@@ -50,15 +56,7 @@ class DropTokenConfigViewController: UIViewController {
     
     @IBOutlet weak var StartGameBtn: UIButton!
     @IBAction func BoardSizeSliderValueChanged(_ sender: UISlider) {
-        let value = Int(sender.value)
-        BoardSizeSliderValue.text = String(value) + " x " + String(value)
-        if value > 5 && value < 8 {
-            BoardSizeSliderValue.textColor = UIColor.orange
-        } else if value >= 8 {
-            BoardSizeSliderValue.textColor = UIColor.red
-        } else {
-            BoardSizeSliderValue.textColor = UIColor.green
-        }
+        updateBoardSizeLabel()
     }
     @IBOutlet weak var BoardSizeSlider: UISlider!
     @IBOutlet weak var BoardSizeSliderValue: UILabel!
@@ -116,6 +114,28 @@ class DropTokenConfigViewController: UIViewController {
         PlayerTwoCustomTokenBtn.layer.cornerRadius = 32.5
         
         StartGameBtn.layer.cornerRadius = 24
-        
+    }
+    
+    // Update slider state/value when triggered by segmented control
+    func updateBoardSizeSlider() {
+        if PlayerOneRoleSwitch.selectedSegmentIndex == 0 && PlayerTwoRoleSwitch.selectedSegmentIndex == 0 {
+            BoardSizeSlider.isEnabled = true
+        } else {
+            BoardSizeSlider.isEnabled = false
+            BoardSizeSlider.setValue(4.0, animated: true)
+            updateBoardSizeLabel()
+        }
+    }
+    
+    func updateBoardSizeLabel() {
+        let value = Int(BoardSizeSlider.value)
+        BoardSizeSliderValue.text = String(value) + " x " + String(value)
+        if value > 5 && value < 8 {
+            BoardSizeSliderValue.textColor = UIColor.orange
+        } else if value >= 8 {
+            BoardSizeSliderValue.textColor = UIColor.red
+        } else {
+            BoardSizeSliderValue.textColor = UIColor.green
+        }
     }
 }

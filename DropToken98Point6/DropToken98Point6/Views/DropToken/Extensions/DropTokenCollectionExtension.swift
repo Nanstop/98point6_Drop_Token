@@ -46,11 +46,7 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dropTokenCollectionCell", for: indexPath) as! DropTokenCollectionViewCell
             cell.backgroundColor = UIColor.clear
             if let possibleCustomToken = DropTokenService.decideCellImage(indexPath.section, indexPath.item) {
-                cell.tokenImage.image = possibleCustomToken
-                cell.tokenImage.clipsToBounds = true
-                cell.tokenImage.translatesAutoresizingMaskIntoConstraints = false
-                cell.tokenImage.contentMode = .scaleAspectFill
-                cell.tokenImage.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5);
+                cell.tokenImage.image = possibleCustomToken.resized(toWidth: cell.frame.width - 20, height: cell.frame.height - 20)
                 if let game = DropTokenService.game {
                     let rotationDegree = game.tokenRotation[indexPath.section][indexPath.item]
                     cell.tokenImage.transform = CGAffineTransform(rotationAngle: CGFloat(rotationDegree))
@@ -81,4 +77,5 @@ extension DropTokenViewController: UICollectionViewDelegate, UICollectionViewDat
         }
         return CGSize(width: cellSide, height: cellSide)
     }
+    
 }
